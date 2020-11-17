@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "My first tiny web scraper",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/Ray-Garraty/webscraper#readme",
   "dependencies": {
+    "html-creator": "^0.4.4",
     "osmosis": "^1.1.10"
   }
 }
