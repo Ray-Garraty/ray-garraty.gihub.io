@@ -1,16 +1,23 @@
 const osmosis = require('osmosis');
 
-// накидать сюда url-адресов источников новостей и по каждому настроить osmosis
-
-    osmosis
-    .get(url)
-    .find('.article-content-wrap')
+/*  osmosis
+    .get('https://www.proton-motor.de/gb/news/press/')
+    .find('div.col-sm-6.newstext')
     .set({
-      title: 'h2',
-      date: '.desktop-reading',
-      link: 'h2 > a@href'
+      title: 'h1',
+      link: 'a@href'
+    })
+    .follow('a@href')
+    .set({
+      date: 'p.float-text',
     })
     .data(console.log)
     .log(console.log)
     .error(console.log)
-    .debug(console.log);
+    .debug(console.log); */
+
+const dateString = 'November 19, 2020';
+const parsedDate = new Date(dateString);
+console.log(parsedDate);
+const formattedDate = parsedDate.toLocaleDateString('ru-RU');
+console.log(formattedDate);
