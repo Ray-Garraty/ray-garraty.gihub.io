@@ -1,23 +1,14 @@
 const osmosis = require('osmosis');
 
-/*  osmosis
-    .get('https://www.proton-motor.de/gb/news/press/')
-    .find('div.col-sm-6.newstext')
+osmosis
+    .get('https://www.keyou.de/news/?lang=en')
+    .find('div.site-inner article')
     .set({
-      title: 'h1',
-      link: 'a@href'
-    })
-    .follow('a@href')
-    .set({
-      date: 'p.float-text',
+      title: 'a.entry-title-link',
+      date: 'time',
+      link: 'a.entry-title-link@href',
     })
     .data(console.log)
     .log(console.log)
     .error(console.log)
-    .debug(console.log); */
-
-const dateString = 'November 19, 2020';
-const parsedDate = new Date(dateString);
-console.log(parsedDate);
-const formattedDate = parsedDate.toLocaleDateString('ru-RU');
-console.log(formattedDate);
+    .debug(console.log);

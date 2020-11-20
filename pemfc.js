@@ -20,6 +20,7 @@ const scrapeTitleFromFuelCellsWorks = (url, num) => {
       link: 'h2 > a@href'
     })
     .data(function(content) {
+      content.date = content.date.split('|')[0].toString();
       result.push({
         pageNumber: num,
         pageContent: content,
@@ -40,11 +41,11 @@ const scrapeNewsFromPowerCell = () => {
     .find('div#releaseArchive li')
     .set({
       title: 'a',
-      date: 'span.meta', //обрезать до символа "•"
+      date: 'span.meta',
       link: 'a@href'
     })
     .data(function(content) {
-      content.date = content.date.split('•')[0].toString();
+      content.date = content.date.split('•')[0].toString().trim();
       result.push({
         pageContent: content,
       });
@@ -153,7 +154,7 @@ const scrapeNewsFromProtonMotor = () => {
       date: 'p.float-text',
     })
     .data(function(content) {
-      content.date = `${content.date.slice(0, 10)}`;
+      content.date = content.date.slice(0, 10).split('/').reverse().join('/');
       result.push({
         pageContent: content,
       });
@@ -165,23 +166,156 @@ const scrapeNewsFromProtonMotor = () => {
   }); 
 };
 
+const scrapeNewsFromBMPower = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+    .get('http://bmpower.ru/news')
+    .find('div.item')
+    .set({
+      title: 'a',
+      date: 'div.dte',
+      link: 'a@href'
+    })
+    .data(function(content) {
+      content.date = content.date.split(',')[0].toString().split('.').reverse().join('/');
+      result.push({
+        pageContent: content,
+      });
+    })
+    .done(() => resolve(result))
+    .log(console.log)
+    .error(console.log)
+    .debug(console.log);
+  }); 
+};
+
+const scrapeNewsFromElringKlinger = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+    .get('https://www.elringklinger.de/en/press/press-releases')
+    .find('div.view-content div.section--region')
+    .set({
+      title: 'h3',
+      date: 'span.date-display-single',
+      link: 'a@href'
+    })
+    .data(function(content) {
+      content.date = content.date.split('-')[0].toString().trim();
+      result.push({
+        pageContent: content,
+      });
+    })
+    .done(() => resolve(result))
+    .log(console.log)
+    .error(console.log)
+    .debug(console.log);
+  }); 
+};
+
+const scrapeNewsFromMyFC = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+    .get('https://www.myfc.se/investor-relations/archives/news?setLang=en')
+    .find('div.prm-archive-text')
+    .set({
+      title: 'h4',
+      date: 'div.typography-small-body',
+      link: 'a@href'
+    })
+    .data(function(content) {
+      result.push({
+        pageContent: content,
+      });
+    })
+    .done(() => {
+      const slicedResult = result.slice(0, 5);
+      return resolve(slicedResult);
+    })
+    .log(console.log)
+    .error(console.log)
+    .debug(console.log);
+  }); 
+};
+
+const scrapeNewsFromHelbio = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+    .get('https://helbio.com/news/')
+    .find('article')
+    .set({
+      title: 'h2',
+      day: 'span.fusion-date',
+      monthAndYear: 'span.fusion-month-year',
+      link: 'a@href',
+    })
+    .data(function(content) {
+      content.date = (`${content.day.padStart(2, 0)}, ${content.monthAndYear}`).split(', ').reverse().join('/'),
+      result.push({
+        pageContent: content,
+      });
+    })
+    .done(() => {
+      const slicedResult = result.slice(0, 5);
+      return resolve(slicedResult);
+    })
+    .log(console.log)
+    .error(console.log)
+    .debug(console.log);
+  }); 
+};
+
+const scrapeNewsFromKeyYou = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+    .get('https://www.keyou.de/news/?lang=en')
+    .find('div.site-inner article')
+    .set({
+      title: 'a.entry-title-link',
+      date: 'time',
+      link: 'a.entry-title-link@href',
+    })
+    .data(function(content) {
+      result.push({
+        pageContent: content,
+      });
+    })
+    .done(() => {
+      const slicedResult = result.slice(0, 5);
+      return resolve(slicedResult);
+    })
+    .log(console.log)
+    .error(console.log)
+    .debug(console.log);
+  }); 
+};
+
 /* функция-генератор массива новостей generateNewsArray: принимает на вход url-адрес первой страницы и
 количество страниц, которое нужно обойти, формирует массив промисов, 
 дожидается разрешения Promise.all по ним, выдаёт массив новостей и сортирует его по номеру страницы */
 const generateNewsArray = async (firstPageUrl, numberOfPages) => {
   let promises = [];
-  for (let i = 1; i <= numberOfPages; i += 1) {
+  /* for (let i = 1; i <= numberOfPages; i += 1) {
     const url = `${firstPageUrl}/page/${i}/`;
     const newsFromPageI = scrapeTitleFromFuelCellsWorks(url, i);
     promises = [...promises, newsFromPageI];
-  }
+  } */
   promises = [
-    ...promises,
+    /* ...promises,
     scrapeNewsFromPowerCell(),
     scrapeNewsFromBallard(),
     scrapeNewsFromNuvera(),
     scrapeNewsFromIntelligentEnergy(),
     scrapeNewsFromProtonMotor(),
+    scrapeNewsFromBMPower(),
+    scrapeNewsFromElringKlinger(),
+    scrapeNewsFromMyFC(),
+    scrapeNewsFromHelbio(), */
+    scrapeNewsFromKeyYou(),
   ];
   const news = await Promise.all(promises);
   const sortedNews = news.sort((a, b) => a.pageNumber - b.pageNumber);
@@ -192,9 +326,13 @@ const generateNewsArray = async (firstPageUrl, numberOfPages) => {
 const createHtml = (news) => {
   const contentArray = news.flatMap((newsFromPage, pageIndex) => {
     return newsFromPage.map((element, index) => {
-      const date = element.pageContent.date.split('|')[0].toString();
-      const parsedDate = new Date(date);
-      const formattedDate = `${parsedDate.toLocaleDateString('ru-RU')}: `;
+      const parsedDate = new Date(element.pageContent.date);
+      const dateOutputOptions = {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      }
+      const formattedDate = `${parsedDate.toLocaleDateString('ru-RU', dateOutputOptions)}: `;
       const result = {
         type: 'p',
         content: [
