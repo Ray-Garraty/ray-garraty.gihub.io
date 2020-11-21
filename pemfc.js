@@ -294,6 +294,61 @@ const scrapeNewsFromKeyYou = () => {
   }); 
 };
 
+const scrapeNewsFromPlugPower = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+    .get('https://www.plugpower.com/in_the_news/')
+    .find('article')
+    .set({
+      title: 'h4 > a',
+      date: 'span.date',
+      link: 'h4 > a@href',
+    })
+    .data(function(content) {
+      const regex = /[A-Z]\w{5,} \d{1,}, \d{4}/m;
+      content.date = content.date.match(regex);
+      result.push({
+        pageContent: content,
+      });
+    })
+    .done(() => {
+      const slicedResult = result.slice(0, 5);
+      return resolve(slicedResult);
+    })
+    .log(console.log)
+    .error(console.log)
+    .debug(console.log);
+  }); 
+};
+
+const scrapeNewsFromPlugPower = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+    .get('https://www.plugpower.com/in_the_news/')
+    .find('article')
+    .set({
+      title: 'h4 > a',
+      date: 'span.date',
+      link: 'h4 > a@href',
+    })
+    .data(function(content) {
+      const regex = /[A-Z]\w{5,} \d{1,}, \d{4}/m;
+      content.date = content.date.match(regex);
+      result.push({
+        pageContent: content,
+      });
+    })
+    .done(() => {
+      return resolve(slicedResult);
+    })
+    .log(console.log)
+    .error(console.log)
+    .debug(console.log);
+  }); 
+};
+
 /* функция-генератор массива новостей generateNewsArray: принимает на вход url-адрес первой страницы и
 количество страниц, которое нужно обойти, формирует массив промисов, 
 дожидается разрешения Promise.all по ним, выдаёт массив новостей и сортирует его по номеру страницы */
@@ -314,8 +369,9 @@ const generateNewsArray = async (firstPageUrl, numberOfPages) => {
     scrapeNewsFromBMPower(),
     scrapeNewsFromElringKlinger(),
     scrapeNewsFromMyFC(),
-    scrapeNewsFromHelbio(), */
-    scrapeNewsFromKeyYou(),
+    scrapeNewsFromHelbio(),
+    scrapeNewsFromKeyYou(), */
+    scrapeNewsFromPlugPower(),
   ];
   const news = await Promise.all(promises);
   const sortedNews = news.sort((a, b) => a.pageNumber - b.pageNumber);

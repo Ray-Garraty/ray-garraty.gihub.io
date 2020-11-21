@@ -1,12 +1,12 @@
 const osmosis = require('osmosis');
 
 osmosis
-    .get('https://www.keyou.de/news/?lang=en')
-    .find('div.site-inner article')
+    .get('https://www.horizonfuelcell.com/mediacoverage')
+    .find('section')
     .set({
-      title: 'a.entry-title-link',
-      date: 'time',
-      link: 'a.entry-title-link@href',
+      title: 'h2',
+      date: 'p > span.color_16 > span > span',
+      link: 'h2 span a@href',
     })
     .data(console.log)
     .log(console.log)
