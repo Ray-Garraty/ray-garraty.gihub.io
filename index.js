@@ -1,12 +1,12 @@
 const osmosis = require('osmosis');
 
 osmosis
-    .get('https://www.horizonfuelcell.com/mediacoverage')
-    .find('section')
+    .get('https://www.gencellenergy.com/news/')
+    .find('a.post-box')
     .set({
-      title: 'h2',
-      date: 'p > span.color_16 > span > span',
-      link: 'h2 span a@href',
+      title: 'h3',
+      date: 'strong',
+      link: 'a@href',
     })
     .data(console.log)
     .log(console.log)

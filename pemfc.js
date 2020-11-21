@@ -322,16 +322,16 @@ const scrapeNewsFromPlugPower = () => {
   }); 
 };
 
-const scrapeNewsFromPlugPower = () => {
+const scrapeNewsFromHorizonFuelCells = () => {
   return new Promise((resolve, reject) => {
     const result = [];
     osmosis
-    .get('https://www.plugpower.com/in_the_news/')
-    .find('article')
+    .get('https://www.horizonfuelcell.com/mediacoverage')
+    .find('section')
     .set({
-      title: 'h4 > a',
-      date: 'span.date',
-      link: 'h4 > a@href',
+      title: 'h2',
+      date: 'p.font_8 > span > span > span',
+      link: 'h2 span a@href',
     })
     .data(function(content) {
       const regex = /[A-Z]\w{5,} \d{1,}, \d{4}/m;
@@ -340,7 +340,87 @@ const scrapeNewsFromPlugPower = () => {
         pageContent: content,
       });
     })
+    .done(() => resolve(result))
+    .log(console.log)
+    .error(console.log)
+    .debug(console.log);
+  }); 
+};
+
+const scrapeNewsFromSerEnergy = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+    .get('https://www.serenergy.com/news/')
+    .find('div.fusion-post-wrapper')
+    .set({
+      title: 'a',
+      date: 'p.fusion-single-line-meta > span + span + span',
+      link: 'a@href',
+    })
+    .data(function(content) {
+      content.date = content.date.replace(/(rd)|(th)|(nd)/g, '');  
+      result.push({
+        pageContent: content,
+      });
+    })
     .done(() => {
+      const slicedResult = result.slice(0, 5);
+      return resolve(slicedResult);
+    })
+    .log(console.log)
+    .error(console.log)
+    .debug(console.log);
+  }); 
+};
+
+const scrapeNewsFromAdventEnergy = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+    .get('https://www.advent.energy/news-press-releases/')
+    .find('div.row.row-collapse')
+    .set({
+      title: 'p',
+      date: 'h3',
+      link: 'a@href',
+    })
+    .data(function(content) {
+      content.date = content.date.replace(/(rd)|(th)|(nd)/g, '');  
+      content.title = content.title.replace('Read more…', '');
+      result.push({
+        pageContent: content,
+      });
+    })
+    .done(() => {
+      const slicedResult = result.slice(0, 5);
+      return resolve(slicedResult);
+    })
+    .log(console.log)
+    .error(console.log)
+    .debug(console.log);
+  }); 
+};
+
+const scrapeNewsFromSFC = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+    .get('https://www.sfc.com/en/news/')
+    .find('article')
+    .set({
+      title: 'h1',
+      date: 'p.meta',
+      link: 'a@href',
+    })
+    .data(function(content) {
+      content.date = content.date.split(',')[0].toString();  
+      result.push({
+        pageContent: content,
+      });
+    })
+    .done(() => {
+      const slicedResult = result.slice(0, 5);
       return resolve(slicedResult);
     })
     .log(console.log)
@@ -370,8 +450,12 @@ const generateNewsArray = async (firstPageUrl, numberOfPages) => {
     scrapeNewsFromElringKlinger(),
     scrapeNewsFromMyFC(),
     scrapeNewsFromHelbio(),
-    scrapeNewsFromKeyYou(), */
+    scrapeNewsFromKeyYou(), 
     scrapeNewsFromPlugPower(),
+    scrapeNewsFromHorizonFuelCells(),
+    scrapeNewsFromSerEnergy(),
+    scrapeNewsFromAdventEnergy(), */
+    scrapeNewsFromSFC(),
   ];
   const news = await Promise.all(promises);
   const sortedNews = news.sort((a, b) => a.pageNumber - b.pageNumber);
