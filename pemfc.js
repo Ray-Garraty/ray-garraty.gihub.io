@@ -1,4 +1,5 @@
 const fs = require('fs');
+const _ = require('lodash');
 const osmosis = require('osmosis');
 const htmlCreator = require('html-creator');
 
@@ -429,6 +430,148 @@ const scrapeNewsFromSFC = () => {
   }); 
 };
 
+const scrapeNewsFromGenCellEnergy = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+    .get('https://www.gencellenergy.com/news/')
+    .find('a.post-box')
+    .set({
+      title: 'h3',
+      date: 'strong',
+      link: '@href',
+    })
+    .data(function(content) {
+      result.push({
+        pageContent: content,
+      });
+    })
+    .done(() => {
+      const slicedResult = result.slice(0, 5);
+      return resolve(slicedResult);
+    })
+    .log(console.log)
+    .error(console.log)
+    .debug(console.log);
+  }); 
+};
+
+const scrapeNewsFromBlueWorldTechnologies = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+    .get('https://www.blue.world/news')
+    .find('article')
+    .set({
+      title: 'h2 > a',
+      date: 'span.blog-date',
+      link: 'h2 > a@href',
+    })
+    .data(function(content) {
+      result.push({
+        pageContent: content,
+      });
+    })
+    .done(() => {
+      const filteredResult = _.uniqWith(result, _.isEqual);
+      const slicedResult = filteredResult.slice(0, 5);
+      return resolve(slicedResult);
+    })
+    .log(console.log)
+    .error(console.log)
+    .debug(console.log);
+  }); 
+};
+
+const scrapeNewsFromDanaInc = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+      .get('https://www.dana.com/newsroom/press-releases/')
+      .find('div.banner-medium-top')
+      .set({
+        title: 'a.text-dark-blue',
+        date: 'p.date',
+        link: 'a.text-dark-blue @href',
+      })
+      .data(function(content) {
+        content.link = `https://www.dana.com${content.link}`,
+        result.push({
+          pageContent: content,
+        });
+      })
+      .done(() => {
+        const slicedResult = result.slice(0, 5);
+        return resolve(slicedResult);
+      })
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
+  }); 
+};
+
+const scrapeNewsFromDoeFuelCellsOffice = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+    .get('https://www.energy.gov/eere/fuelcells/listings/hydrogen-and-fuel-cells-news')
+    .find('div.node > div.content')
+    .set({
+      title: 'a.title-link',
+      date: 'div.date',
+      link: 'a.title-link @href',
+    })
+    .data(function(content) {
+      const domainName = 'https://www.energy.gov';
+      content.link = content.link.includes(domainName) 
+      ? content.link 
+      : `${domainName}${content.link}`;
+      result.push({
+        pageContent: content,
+      });
+    })
+    .done(() => {
+      const filteredResult = _.uniqWith(result, _.isEqual);
+      const slicedResult = filteredResult.slice(0, 5);
+      return resolve(slicedResult);
+    })
+    .log(console.log)
+    .error(console.log)
+    .debug(console.log);
+  }); 
+};
+
+const scrapeNewsFromDoeFossilEnergyOffice = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+      .get('https://www.energy.gov/fe/listings/fe-press-releases-and-techlines')
+      .find('div.node-article')
+      .set({
+        title: 'a.title-link',
+        date: 'div.date',
+        link: 'a.title-link @href',
+      })
+      .data(function(content) {
+        const domainName = 'https://www.energy.gov';
+        content.link = content.link.includes(domainName) 
+        ? content.link 
+        : `${domainName}${content.link}`;
+        result.push({
+          pageContent: content,
+        });
+      })
+      .done(() => {
+        const filteredResult = _.uniqWith(result, _.isEqual);
+        const slicedResult = filteredResult.slice(0, 5);
+        return resolve(slicedResult);
+      })
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
+    }); 
+};
+
 /* функция-генератор массива новостей generateNewsArray: принимает на вход url-адрес первой страницы и
 количество страниц, которое нужно обойти, формирует массив промисов, 
 дожидается разрешения Promise.all по ним, выдаёт массив новостей и сортирует его по номеру страницы */
@@ -454,8 +597,13 @@ const generateNewsArray = async (firstPageUrl, numberOfPages) => {
     scrapeNewsFromPlugPower(),
     scrapeNewsFromHorizonFuelCells(),
     scrapeNewsFromSerEnergy(),
-    scrapeNewsFromAdventEnergy(), */
+    scrapeNewsFromAdventEnergy(),
     scrapeNewsFromSFC(),
+    scrapeNewsFromGenCellEnergy(),
+    scrapeNewsFromBlueWorldTechnologies(),
+    scrapeNewsFromDanaInc(),
+    scrapeNewsFromDoeFuelCellsOffice(), */
+    scrapeNewsFromDoeFossilEnergyOffice(),
   ];
   const news = await Promise.all(promises);
   const sortedNews = news.sort((a, b) => a.pageNumber - b.pageNumber);

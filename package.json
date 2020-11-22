@@ -22,6 +22,7 @@
   "homepage": "https://github.com/Ray-Garraty/webscraper#readme",
   "dependencies": {
     "html-creator": "^0.4.4",
+    "lodash": "^4.17.20",
     "osmosis": "^1.1.10"
   }
 }
