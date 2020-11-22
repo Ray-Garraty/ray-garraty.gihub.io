@@ -572,18 +572,132 @@ const scrapeNewsFromDoeFossilEnergyOffice = () => {
     }); 
 };
 
+const scrapeNewsFromPACE = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+      .get('http://www.pace-energy.eu/news-events/')
+      .find('article')
+      .set({
+        title: 'h2 > a',
+        date: 'div.fusion-alignleft > span:nth-child(4)',
+        link: 'h2 > a@href',
+      })
+      .data(function(content) {
+        content.date = content.date.replace(/(rd)|(th)|(nd)/g, '');
+        result.push({
+          pageContent: content,
+        });
+      })
+      .done(() => {
+        const slicedResult = result.slice(0, 5);
+        return resolve(slicedResult);
+      })
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
+    }); 
+};
+
+const scrapeNewsFromDoosan = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+      .get('http://www.doosanmobility.com/en/about-us/news-events/')
+      .find('li.m12-col-3')
+      .set({
+        title: 'h3',
+        date: 'p.date',
+        link: 'a@href',
+      })
+      .data(function(content) {
+        result.push({
+          pageContent: content,
+        });
+      })
+      .done(() => {
+        const slicedResult = result.slice(0, 5);
+        return resolve(slicedResult);
+      })
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
+    }); 
+};
+
+const scrapeNewsFromToshiba = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+      .get('https://www.toshiba-energy.com/en/info/index.htm')
+      .find('div.newstxt')
+      .set({
+        title: 'h2',
+        date: 'span.data.f12',
+        link: 'a@href',
+      })
+      .data(function(content) {
+        const domainName = 'https://www.toshiba-energy.com';
+        content.link = content.link.includes(domainName) 
+        ? content.link 
+        : `${domainName}${content.link}`;
+        result.push({
+          pageContent: content,
+        });
+      })
+      .done(() => {
+        const slicedResult = result.slice(0, 5);
+        return resolve(slicedResult);
+      })
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
+  }); 
+};
+
+const scrapeNewsFromGoogleScholar = (queryString) => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+      .get(`https://scholar.google.com/scholar?hl=en&scisbd=1&as_sdt=1%2C5&q=${queryString}&btnG=`)
+      .paginate('td > a', 1)
+      .find('div.gs_ri')
+      .set({
+        title: 'a',
+        date: 'span.gs_age',
+        link: 'a@href',
+      })
+      .data(function(content) {
+        let dateDiff = 0;
+        if (content.date) {
+          dateDiff = content.date.split(' ')[0] * 8.64e+7;
+        }
+        const currentDate = new Date(Date.now());
+        const articleDate = new Date(currentDate - dateDiff);
+        content.date = articleDate.toLocaleDateString('en-US'); 
+        result.push({
+          pageContent: content,
+        });
+      })
+      .done(() => resolve(result))
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
+    }); 
+};
+
 /* функция-генератор массива новостей generateNewsArray: принимает на вход url-адрес первой страницы и
 количество страниц, которое нужно обойти, формирует массив промисов, 
 дожидается разрешения Promise.all по ним, выдаёт массив новостей и сортирует его по номеру страницы */
 const generateNewsArray = async (firstPageUrl, numberOfPages) => {
   let promises = [];
-  /* for (let i = 1; i <= numberOfPages; i += 1) {
+  for (let i = 1; i <= numberOfPages; i += 1) {
     const url = `${firstPageUrl}/page/${i}/`;
     const newsFromPageI = scrapeTitleFromFuelCellsWorks(url, i);
     promises = [...promises, newsFromPageI];
-  } */
+  }
   promises = [
-    /* ...promises,
+    ...promises,
     scrapeNewsFromPowerCell(),
     scrapeNewsFromBallard(),
     scrapeNewsFromNuvera(),
@@ -602,43 +716,52 @@ const generateNewsArray = async (firstPageUrl, numberOfPages) => {
     scrapeNewsFromGenCellEnergy(),
     scrapeNewsFromBlueWorldTechnologies(),
     scrapeNewsFromDanaInc(),
-    scrapeNewsFromDoeFuelCellsOffice(), */
-    scrapeNewsFromDoeFossilEnergyOffice(),
+    scrapeNewsFromDoeFuelCellsOffice(),
+    scrapeNewsFromDoeFossilEnergyOffice(), 
+    scrapeNewsFromPACE(),
+    scrapeNewsFromDoosan(), 
+    scrapeNewsFromToshiba(),
+    scrapeNewsFromGoogleScholar('pemfc'),
+    scrapeNewsFromGoogleScholar('natural+gas+reforming'),
+    scrapeNewsFromGoogleScholar('hydrogen+storage'),
+    scrapeNewsFromGoogleScholar('hydrogen+purification'),
   ];
   const news = await Promise.all(promises);
-  const sortedNews = news.sort((a, b) => a.pageNumber - b.pageNumber);
-  return sortedNews;
+  // const sortedNews = news.sort((a, b) => a.pageNumber - b.pageNumber);
+  // return sortedNews;
+  return news;
 };
 
 // простая функция createHtmlFromNestedArray, которая принимает на вход массив новостей и генерирует HTML-код с ними
 const createHtml = (news) => {
-  const contentArray = news.flatMap((newsFromPage, pageIndex) => {
-    return newsFromPage.map((element, index) => {
-      const parsedDate = new Date(element.pageContent.date);
-      const dateOutputOptions = {
-        year: "numeric",
-        month: "short",
-        day: "numeric"
-      }
-      const formattedDate = `${parsedDate.toLocaleDateString('ru-RU', dateOutputOptions)}: `;
-      const result = {
-        type: 'p',
-        content: [
-          {
-            type: 'span',
-            content: formattedDate,
-            attributes: {},
-          },
-          {
-            type: 'a',
-            content: element.pageContent.title,
-            attributes: { href: element.pageContent.link, target: '_blank' },
-          },
-        ],
-      };
-      return result;
-      });
-  }); 
+  const contentArray = news
+    .flatMap((newsFromPage, pageIndex) => {
+      return newsFromPage.map((element, index) => {
+        const parsedDate = new Date(element.pageContent.date);
+        const dateOutputOptions = {
+          year: "numeric",
+          month: "short",
+          day: "numeric"
+        }
+        const formattedDate = `${parsedDate.toLocaleDateString('ru-RU', dateOutputOptions)}: `;
+        const result = {
+          type: 'p',
+          content: [
+            {
+              type: 'span',
+              content: formattedDate,
+              attributes: {},
+            },
+            {
+              type: 'a',
+              content: element.pageContent.title,
+              attributes: { href: element.pageContent.link, target: '_blank' },
+            },
+          ],
+        };
+        return result;
+        });
+    }); 
   const html = new htmlCreator([
     {
       type: 'head',
