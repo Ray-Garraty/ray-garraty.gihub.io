@@ -3,34 +3,45 @@ const _ = require('lodash');
 const osmosis = require('osmosis');
 const htmlCreator = require('html-creator');
 
-const firstPageUrlAddress = 'https://fuelcellsworks.com/news';
-const numberOfPages = 10;
 const resultFileName = 'pemfc.htm';
 
-/* обычная функция scrapeTitleFrom... на основе osmosis: принимает на вход url-адрес и номер страницы, 
-возвращает промис, который разрешается в объект с данными новостей этой страницы */
-const scrapeTitleFromFuelCellsWorks = (url, num) => {
+// простая функция parseDate - принимает на вход строку даты в нестандартной формате
+// (сграбленную с сайта) и преобразует её в число мс с 01.01.1970
+const parseDate = (dateStringFromSite) => Date.parse(dateStringFromSite);
+
+// простая функция formatDate - принимает на вход дату в виде числа мс с 01.01.1970
+// и преобразует её в строковое представление для HTML-отображения 
+const formatDate = (msDate) => {
+  const dateOutputOptions = {
+    year: "numeric",
+    month: "short",
+    day: "numeric"
+  }
+  const date = new Date(msDate);
+  const formattedDate = `${date.toLocaleDateString('ru-RU', dateOutputOptions)}: `;
+  return formattedDate;
+};
+
+const scrapeNewsFromFuelCellsWorks = () => {
   return new Promise((resolve, reject) => {
     const result = [];
     osmosis
-    .get(url)
-    .find('.article-content-wrap')
-    .set({
-      title: 'h2',
-      date: '.desktop-reading',
-      link: 'h2 > a@href'
-    })
-    .data(function(content) {
-      content.date = content.date.split('|')[0].toString();
-      result.push({
-        pageNumber: num,
-        pageContent: content,
-      });
-    })
-    .done(() => resolve(result))
-    .log(console.log)
-    .error(console.log)
-    .debug(console.log);
+      .get('https://fuelcellsworks.com/news/')
+      .paginate('a.page-numbers', 10)
+      .find('.article-content-wrap')
+      .set({
+        title: 'h2',
+        date: '.desktop-reading',
+        link: 'h2 > a@href'
+      })
+      .data(function(content) {
+        content.date = content.date.split('|')[0].toString();
+        result.push(content);
+      })
+      .done(() => resolve(result))
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
   }); 
 };
 
@@ -47,9 +58,7 @@ const scrapeNewsFromPowerCell = () => {
     })
     .data(function(content) {
       content.date = content.date.split('•')[0].toString().trim();
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => {
       const slicedResult = result.slice(0, 5);
@@ -73,9 +82,7 @@ const scrapeNewsFromBallard = () => {
       link: 'a@href'
     })
     .data(function(content) {
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => {
       const slicedResult = result.slice(0, 5);
@@ -99,9 +106,7 @@ const scrapeNewsFromNuvera = () => {
       link: 'a@href'
     })
     .data(function(content) {
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => {
       const slicedResult = result.slice(0, 5);
@@ -126,9 +131,7 @@ const scrapeNewsFromIntelligentEnergy = () => {
     })
     .data(function(content) {
       content.date = `${content.date.slice(17)}`;
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => {
       const slicedResult = result.slice(0, 5);
@@ -156,9 +159,7 @@ const scrapeNewsFromProtonMotor = () => {
     })
     .data(function(content) {
       content.date = content.date.slice(0, 10).split('/').reverse().join('/');
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => resolve(result.sort((a, b) => a.date - b.date)))
     .log(console.log)
@@ -180,9 +181,7 @@ const scrapeNewsFromBMPower = () => {
     })
     .data(function(content) {
       content.date = content.date.split(',')[0].toString().split('.').reverse().join('/');
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => resolve(result))
     .log(console.log)
@@ -204,9 +203,7 @@ const scrapeNewsFromElringKlinger = () => {
     })
     .data(function(content) {
       content.date = content.date.split('-')[0].toString().trim();
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => resolve(result))
     .log(console.log)
@@ -227,9 +224,7 @@ const scrapeNewsFromMyFC = () => {
       link: 'a@href'
     })
     .data(function(content) {
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => {
       const slicedResult = result.slice(0, 5);
@@ -255,9 +250,7 @@ const scrapeNewsFromHelbio = () => {
     })
     .data(function(content) {
       content.date = (`${content.day.padStart(2, 0)}, ${content.monthAndYear}`).split(', ').reverse().join('/'),
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => {
       const slicedResult = result.slice(0, 5);
@@ -281,9 +274,7 @@ const scrapeNewsFromKeyYou = () => {
       link: 'a.entry-title-link@href',
     })
     .data(function(content) {
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => {
       const slicedResult = result.slice(0, 5);
@@ -309,9 +300,7 @@ const scrapeNewsFromPlugPower = () => {
     .data(function(content) {
       const regex = /[A-Z]\w{5,} \d{1,}, \d{4}/m;
       content.date = content.date.match(regex);
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => {
       const slicedResult = result.slice(0, 5);
@@ -337,9 +326,7 @@ const scrapeNewsFromHorizonFuelCells = () => {
     .data(function(content) {
       const regex = /[A-Z]\w{5,} \d{1,}, \d{4}/m;
       content.date = content.date.match(regex);
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => resolve(result))
     .log(console.log)
@@ -361,9 +348,7 @@ const scrapeNewsFromSerEnergy = () => {
     })
     .data(function(content) {
       content.date = content.date.replace(/(rd)|(th)|(nd)/g, '');  
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => {
       const slicedResult = result.slice(0, 5);
@@ -389,9 +374,7 @@ const scrapeNewsFromAdventEnergy = () => {
     .data(function(content) {
       content.date = content.date.replace(/(rd)|(th)|(nd)/g, '');  
       content.title = content.title.replace('Read more…', '');
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => {
       const slicedResult = result.slice(0, 5);
@@ -416,9 +399,7 @@ const scrapeNewsFromSFC = () => {
     })
     .data(function(content) {
       content.date = content.date.split(',')[0].toString();  
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => {
       const slicedResult = result.slice(0, 5);
@@ -442,9 +423,7 @@ const scrapeNewsFromGenCellEnergy = () => {
       link: '@href',
     })
     .data(function(content) {
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => {
       const slicedResult = result.slice(0, 5);
@@ -468,9 +447,7 @@ const scrapeNewsFromBlueWorldTechnologies = () => {
       link: 'h2 > a@href',
     })
     .data(function(content) {
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => {
       const filteredResult = _.uniqWith(result, _.isEqual);
@@ -496,9 +473,7 @@ const scrapeNewsFromDanaInc = () => {
       })
       .data(function(content) {
         content.link = `https://www.dana.com${content.link}`,
-        result.push({
-          pageContent: content,
-        });
+        result.push(content);
       })
       .done(() => {
         const slicedResult = result.slice(0, 5);
@@ -526,9 +501,7 @@ const scrapeNewsFromDoeFuelCellsOffice = () => {
       content.link = content.link.includes(domainName) 
       ? content.link 
       : `${domainName}${content.link}`;
-      result.push({
-        pageContent: content,
-      });
+      result.push(content);
     })
     .done(() => {
       const filteredResult = _.uniqWith(result, _.isEqual);
@@ -557,9 +530,7 @@ const scrapeNewsFromDoeFossilEnergyOffice = () => {
         content.link = content.link.includes(domainName) 
         ? content.link 
         : `${domainName}${content.link}`;
-        result.push({
-          pageContent: content,
-        });
+        result.push(content);
       })
       .done(() => {
         const filteredResult = _.uniqWith(result, _.isEqual);
@@ -585,9 +556,7 @@ const scrapeNewsFromPACE = () => {
       })
       .data(function(content) {
         content.date = content.date.replace(/(rd)|(th)|(nd)/g, '');
-        result.push({
-          pageContent: content,
-        });
+        result.push(content);
       })
       .done(() => {
         const slicedResult = result.slice(0, 5);
@@ -611,9 +580,7 @@ const scrapeNewsFromDoosan = () => {
         link: 'a@href',
       })
       .data(function(content) {
-        result.push({
-          pageContent: content,
-        });
+        result.push(content);
       })
       .done(() => {
         const slicedResult = result.slice(0, 5);
@@ -641,9 +608,7 @@ const scrapeNewsFromToshiba = () => {
         content.link = content.link.includes(domainName) 
         ? content.link 
         : `${domainName}${content.link}`;
-        result.push({
-          pageContent: content,
-        });
+        result.push(content);
       })
       .done(() => {
         const slicedResult = result.slice(0, 5);
@@ -656,6 +621,20 @@ const scrapeNewsFromToshiba = () => {
 };
 
 const scrapeNewsFromGoogleScholar = (queryString) => {
+  const convertDateFromRelativeToAbsolute = (relativeDate) => {
+    let msecsDiff = 0;
+      if (relativeDate) {
+        if (relativeDate.includes('days')) {
+          const daysDiff = Number(relativeDate.split(' ')[0]);
+          const msecsInAday = 8.64e+7;
+          msecsDiff = daysDiff * msecsInAday;
+        }
+      }
+      const currentDateInMsecs = Date.now();
+      const result = new Date(currentDateInMsecs - msecsDiff);
+      return result.toLocaleDateString('en-US');
+  };
+  
   return new Promise((resolve, reject) => {
     const result = [];
     osmosis
@@ -668,16 +647,8 @@ const scrapeNewsFromGoogleScholar = (queryString) => {
         link: 'a@href',
       })
       .data(function(content) {
-        let dateDiff = 0;
-        if (content.date) {
-          dateDiff = content.date.split(' ')[0] * 8.64e+7;
-        }
-        const currentDate = new Date(Date.now());
-        const articleDate = new Date(currentDate - dateDiff);
-        content.date = articleDate.toLocaleDateString('en-US'); 
-        result.push({
-          pageContent: content,
-        });
+        content.date = convertDateFromRelativeToAbsolute(content.date);
+        result.push(content);
       })
       .done(() => resolve(result))
       .log(console.log)
@@ -686,18 +657,11 @@ const scrapeNewsFromGoogleScholar = (queryString) => {
     }); 
 };
 
-/* функция-генератор массива новостей generateNewsArray: принимает на вход url-адрес первой страницы и
-количество страниц, которое нужно обойти, формирует массив промисов, 
-дожидается разрешения Promise.all по ним, выдаёт массив новостей и сортирует его по номеру страницы */
-const generateNewsArray = async (firstPageUrl, numberOfPages) => {
-  let promises = [];
-  for (let i = 1; i <= numberOfPages; i += 1) {
-    const url = `${firstPageUrl}/page/${i}/`;
-    const newsFromPageI = scrapeTitleFromFuelCellsWorks(url, i);
-    promises = [...promises, newsFromPageI];
-  }
-  promises = [
-    ...promises,
+/* функция-генератор массива новостей generateNewsArray: формирует массив промисов, 
+дожидается разрешения Promise.all по ним, сортирует полученный массив новостей по дате и выдаёт его */
+const generateNewsArray = async () => {
+  const promises = [
+    /* scrapeNewsFromFuelCellsWorks(),
     scrapeNewsFromPowerCell(),
     scrapeNewsFromBallard(),
     scrapeNewsFromNuvera(),
@@ -720,48 +684,47 @@ const generateNewsArray = async (firstPageUrl, numberOfPages) => {
     scrapeNewsFromDoeFossilEnergyOffice(), 
     scrapeNewsFromPACE(),
     scrapeNewsFromDoosan(), 
-    scrapeNewsFromToshiba(),
+    scrapeNewsFromToshiba(), */
     scrapeNewsFromGoogleScholar('pemfc'),
     scrapeNewsFromGoogleScholar('natural+gas+reforming'),
     scrapeNewsFromGoogleScholar('hydrogen+storage'),
     scrapeNewsFromGoogleScholar('hydrogen+purification'),
   ];
   const news = await Promise.all(promises);
-  // const sortedNews = news.sort((a, b) => a.pageNumber - b.pageNumber);
-  // return sortedNews;
-  return news;
+  console.log(news);
+  news.forEach((element) => {
+    element.date = parseDate(element.date);
+  });
+  console.log(news);
+  const newsSortedByDate = _.sortBy(_.flattenDeep(news), (element) => element.date);
+  console.log(newsSortedByDate);
+  const result = newsSortedByDate.reverse();
+  return result;
 };
 
-// простая функция createHtmlFromNestedArray, которая принимает на вход массив новостей и генерирует HTML-код с ними
+// простая функция createHtmlFromNestedArray, которая принимает на вход массив новостей 
+// и генерирует HTML-код с ними
 const createHtml = (news) => {
-  const contentArray = news
-    .flatMap((newsFromPage, pageIndex) => {
-      return newsFromPage.map((element, index) => {
-        const parsedDate = new Date(element.pageContent.date);
-        const dateOutputOptions = {
-          year: "numeric",
-          month: "short",
-          day: "numeric"
-        }
-        const formattedDate = `${parsedDate.toLocaleDateString('ru-RU', dateOutputOptions)}: `;
-        const result = {
-          type: 'p',
-          content: [
-            {
-              type: 'span',
-              content: formattedDate,
-              attributes: {},
-            },
-            {
-              type: 'a',
-              content: element.pageContent.title,
-              attributes: { href: element.pageContent.link, target: '_blank' },
-            },
-          ],
-        };
-        return result;
-        });
-    }); 
+  const contentArray = news.map((element) => {
+    const formattedDate = formatDate(element.date);
+    const result = {
+        type: 'p',
+        content: [
+          {
+            type: 'span',
+            content: formattedDate,
+            attributes: {},
+          },
+          {
+            type: 'a',
+            content: element.title,
+            attributes: { href: element.link, target: '_blank' },
+          },
+        ],
+      };
+      return result;
+    });
+   
   const html = new htmlCreator([
     {
       type: 'head',
@@ -783,7 +746,7 @@ const createHtml = (news) => {
         },  
       ],
     },
-  ]);
+    ]);
   return html;
 };
 
@@ -793,7 +756,7 @@ const writeHtmlToFile = (html) => {
   fs.writeFile(resultFileName, data, 'utf-8', () => console.log(`The ${resultFileName} file has been succesfully created!`));
 };
 
-generateNewsArray(firstPageUrlAddress, numberOfPages)
-.then((newsArray) => createHtml(newsArray))
-.then((html) => writeHtmlToFile(html))
-.catch(console.error);
+generateNewsArray()
+  .then((newsArray) => createHtml(newsArray))
+  .then((html) => writeHtmlToFile(html))
+  .catch(console.error);
