@@ -1,5 +1,6 @@
 const fs = require('fs');
 const _ = require('lodash');
+const osmosis = require('osmosis');
 const htmlCreator = require('html-creator');
 
 // простая функция parseDate - принимает на вход строку даты в нестандартной формате

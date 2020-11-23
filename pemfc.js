@@ -648,10 +648,10 @@ const websitesList = [
   scrapeNewsFromPACE(),
   scrapeNewsFromDoosan(), 
   scrapeNewsFromToshiba(),
-  scrapeNewsFromGoogleScholar('pemfc'),
-  scrapeNewsFromGoogleScholar('natural+gas+reforming'),
-  scrapeNewsFromGoogleScholar('hydrogen+storage'),
-  scrapeNewsFromGoogleScholar('hydrogen+purification'),
+  src.scrapeNewsFromGoogleScholar('pemfc'),
+  src.scrapeNewsFromGoogleScholar('natural+gas+reforming'),
+  src.scrapeNewsFromGoogleScholar('hydrogen+storage'),
+  src.scrapeNewsFromGoogleScholar('hydrogen+purification'),
 ];
 
 src.generateNewsArray(websitesList)

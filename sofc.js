@@ -5,6 +5,34 @@ const osmosis = require('osmosis');
 const resultFileName = 'sofc.htm';
 const header = 'Новости ТОТЭ';
 
+const scrapeNewsFromBloomEnergy = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+      .get('https://www.bloomenergy.com/newsroom/press-releases')
+      .find('div.views-row')
+      .set({
+        title: 'a',
+        date: 'span.date-display-single',
+        link: 'a@href',
+      })
+      .data(function(content) {
+        const domainName = 'https://www.bloomenergy.com';
+        content.link = content.link.includes(domainName) 
+        ? content.link 
+        : `${domainName}${content.link}`;
+        result.push(content);
+      })
+      .done(() => {
+        const slicedResult = result.slice(0, 5);
+        return resolve(slicedResult);
+      })
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
+    }); 
+};
+
 const scrapeNewsFromElcogen = () => {
   return new Promise((resolve, reject) => {
     const result = [];
@@ -82,9 +110,11 @@ const scrapeNewsFromSeeO2Energy = () => {
 };
 
 const websitesList = [
-  // scrapeNewsFromElcogen(),
-  // scrapeNewsFromSolidPower(),
+  scrapeNewsFromBloomEnergy(),
+  scrapeNewsFromElcogen(),
+  scrapeNewsFromSolidPower(),
   scrapeNewsFromSeeO2Energy(),
+  src.scrapeNewsFromGoogleScholar('solid+oxide+fuel+cells'),
 ];
 
 src.generateNewsArray(websitesList)
