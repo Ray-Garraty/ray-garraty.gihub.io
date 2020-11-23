@@ -1,26 +1,9 @@
-const fs = require('fs');
 const _ = require('lodash');
+const src = require('./src.js');
 const osmosis = require('osmosis');
-const htmlCreator = require('html-creator');
 
 const resultFileName = 'pemfc.htm';
-
-// простая функция parseDate - принимает на вход строку даты в нестандартной формате
-// (сграбленную с сайта) и преобразует её в число мс с 01.01.1970
-const parseDate = (dateStringFromSite) => Date.parse(dateStringFromSite);
-
-// простая функция formatDate - принимает на вход дату в виде числа мс с 01.01.1970
-// и преобразует её в строковое представление для HTML-отображения 
-const formatDate = (msDate) => {
-  const dateOutputOptions = {
-    year: "numeric",
-    month: "short",
-    day: "numeric"
-  }
-  const date = new Date(msDate);
-  const formattedDate = `${date.toLocaleDateString('ru-RU', dateOutputOptions)}: `;
-  return formattedDate;
-};
+const header = 'Новости ТЭПМ и ЭТЭ';
 
 const scrapeNewsFromFuelCellsWorks = () => {
   return new Promise((resolve, reject) => {
@@ -82,6 +65,10 @@ const scrapeNewsFromBallard = () => {
       link: 'a@href'
     })
     .data(function(content) {
+      const domainName = 'https://www.ballard.com/about-ballard/newsroom/';
+      content.link = content.link.includes(domainName) 
+      ? content.link 
+      : `${domainName}${content.link}`;
       result.push(content);
     })
     .done(() => {
@@ -131,6 +118,10 @@ const scrapeNewsFromIntelligentEnergy = () => {
     })
     .data(function(content) {
       content.date = `${content.date.slice(17)}`;
+      const domainName = 'https://www.intelligent-energy.com';
+      content.link = content.link.includes(domainName) 
+      ? content.link 
+      : `${domainName}${content.link}`;
       result.push(content);
     })
     .done(() => {
@@ -203,6 +194,10 @@ const scrapeNewsFromElringKlinger = () => {
     })
     .data(function(content) {
       content.date = content.date.split('-')[0].toString().trim();
+      const domainName = 'https://www.elringklinger.de';
+      content.link = content.link.includes(domainName) 
+      ? content.link 
+      : `${domainName}${content.link}`;
       result.push(content);
     })
     .done(() => resolve(result))
@@ -224,6 +219,10 @@ const scrapeNewsFromMyFC = () => {
       link: 'a@href'
     })
     .data(function(content) {
+      const domainName = 'https://www.myfc.se';
+      content.link = content.link.includes(domainName) 
+      ? content.link 
+      : `${domainName}${content.link}`;
       result.push(content);
     })
     .done(() => {
@@ -316,22 +315,26 @@ const scrapeNewsFromHorizonFuelCells = () => {
   return new Promise((resolve, reject) => {
     const result = [];
     osmosis
-    .get('https://www.horizonfuelcell.com/mediacoverage')
-    .find('section')
-    .set({
-      title: 'h2',
-      date: 'p.font_8 > span > span > span',
-      link: 'h2 span a@href',
-    })
-    .data(function(content) {
-      const regex = /[A-Z]\w{5,} \d{1,}, \d{4}/m;
-      content.date = content.date.match(regex);
-      result.push(content);
-    })
-    .done(() => resolve(result))
-    .log(console.log)
-    .error(console.log)
-    .debug(console.log);
+      .get('https://www.horizonfuelcell.com/mediacoverage')
+      .find('section')
+      .set({
+        title: 'h2',
+        date: 'p.font_8 > span > span > span',
+        link: 'h2 span a@href',
+      })
+      .data(function(content) {
+        const regex = /[A-Z]\w{5,} \d{1,}, \d{4}/m;
+        if (content.date.match(regex)) {
+          content.date = content.date.match(regex)[0];
+        } else {
+          content.date = '1970-01-01';
+        }
+        result.push(content);
+      })
+      .done(() => resolve(result))
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
   }); 
 };
 
@@ -620,143 +623,38 @@ const scrapeNewsFromToshiba = () => {
   }); 
 };
 
-const scrapeNewsFromGoogleScholar = (queryString) => {
-  const convertDateFromRelativeToAbsolute = (relativeDate) => {
-    let msecsDiff = 0;
-      if (relativeDate) {
-        if (relativeDate.includes('days')) {
-          const daysDiff = Number(relativeDate.split(' ')[0]);
-          const msecsInAday = 8.64e+7;
-          msecsDiff = daysDiff * msecsInAday;
-        }
-      }
-      const currentDateInMsecs = Date.now();
-      const result = new Date(currentDateInMsecs - msecsDiff);
-      return result.toLocaleDateString('en-US');
-  };
-  
-  return new Promise((resolve, reject) => {
-    const result = [];
-    osmosis
-      .get(`https://scholar.google.com/scholar?hl=en&scisbd=1&as_sdt=1%2C5&q=${queryString}&btnG=`)
-      .paginate('td > a', 1)
-      .find('div.gs_ri')
-      .set({
-        title: 'a',
-        date: 'span.gs_age',
-        link: 'a@href',
-      })
-      .data(function(content) {
-        content.date = convertDateFromRelativeToAbsolute(content.date);
-        result.push(content);
-      })
-      .done(() => resolve(result))
-      .log(console.log)
-      .error(console.log)
-      .debug(console.log);
-    }); 
-};
+const websitesList = [
+  scrapeNewsFromFuelCellsWorks(),
+  scrapeNewsFromPowerCell(),
+  scrapeNewsFromBallard(),
+  scrapeNewsFromNuvera(),
+  scrapeNewsFromIntelligentEnergy(),
+  scrapeNewsFromProtonMotor(),
+  scrapeNewsFromBMPower(),
+  scrapeNewsFromElringKlinger(),
+  scrapeNewsFromMyFC(),
+  scrapeNewsFromHelbio(),
+  scrapeNewsFromKeyYou(), 
+  scrapeNewsFromPlugPower(),
+  scrapeNewsFromHorizonFuelCells(),
+  scrapeNewsFromSerEnergy(),
+  scrapeNewsFromAdventEnergy(),
+  scrapeNewsFromSFC(),
+  scrapeNewsFromGenCellEnergy(),
+  scrapeNewsFromBlueWorldTechnologies(),
+  scrapeNewsFromDanaInc(),
+  scrapeNewsFromDoeFuelCellsOffice(),
+  scrapeNewsFromDoeFossilEnergyOffice(), 
+  scrapeNewsFromPACE(),
+  scrapeNewsFromDoosan(), 
+  scrapeNewsFromToshiba(),
+  scrapeNewsFromGoogleScholar('pemfc'),
+  scrapeNewsFromGoogleScholar('natural+gas+reforming'),
+  scrapeNewsFromGoogleScholar('hydrogen+storage'),
+  scrapeNewsFromGoogleScholar('hydrogen+purification'),
+];
 
-/* функция-генератор массива новостей generateNewsArray: формирует массив промисов, 
-дожидается разрешения Promise.all по ним, сортирует полученный массив новостей по дате и выдаёт его */
-const generateNewsArray = async () => {
-  const promises = [
-    /* scrapeNewsFromFuelCellsWorks(),
-    scrapeNewsFromPowerCell(),
-    scrapeNewsFromBallard(),
-    scrapeNewsFromNuvera(),
-    scrapeNewsFromIntelligentEnergy(),
-    scrapeNewsFromProtonMotor(),
-    scrapeNewsFromBMPower(),
-    scrapeNewsFromElringKlinger(),
-    scrapeNewsFromMyFC(),
-    scrapeNewsFromHelbio(),
-    scrapeNewsFromKeyYou(), 
-    scrapeNewsFromPlugPower(),
-    scrapeNewsFromHorizonFuelCells(),
-    scrapeNewsFromSerEnergy(),
-    scrapeNewsFromAdventEnergy(),
-    scrapeNewsFromSFC(),
-    scrapeNewsFromGenCellEnergy(),
-    scrapeNewsFromBlueWorldTechnologies(),
-    scrapeNewsFromDanaInc(),
-    scrapeNewsFromDoeFuelCellsOffice(),
-    scrapeNewsFromDoeFossilEnergyOffice(), 
-    scrapeNewsFromPACE(),
-    scrapeNewsFromDoosan(), 
-    scrapeNewsFromToshiba(), */
-    scrapeNewsFromGoogleScholar('pemfc'),
-    scrapeNewsFromGoogleScholar('natural+gas+reforming'),
-    scrapeNewsFromGoogleScholar('hydrogen+storage'),
-    scrapeNewsFromGoogleScholar('hydrogen+purification'),
-  ];
-  const news = await Promise.all(promises);
-  console.log(news);
-  news.forEach((element) => {
-    element.date = parseDate(element.date);
-  });
-  console.log(news);
-  const newsSortedByDate = _.sortBy(_.flattenDeep(news), (element) => element.date);
-  console.log(newsSortedByDate);
-  const result = newsSortedByDate.reverse();
-  return result;
-};
-
-// простая функция createHtmlFromNestedArray, которая принимает на вход массив новостей 
-// и генерирует HTML-код с ними
-const createHtml = (news) => {
-  const contentArray = news.map((element) => {
-    const formattedDate = formatDate(element.date);
-    const result = {
-        type: 'p',
-        content: [
-          {
-            type: 'span',
-            content: formattedDate,
-            attributes: {},
-          },
-          {
-            type: 'a',
-            content: element.title,
-            attributes: { href: element.link, target: '_blank' },
-          },
-        ],
-      };
-      return result;
-    });
-   
-  const html = new htmlCreator([
-    {
-      type: 'head',
-      content: [{ type: 'title', content: 'Новости ТЭПМ и ЭТЭ' }]
-    },
-    {
-      type: 'body',
-      attributes: { style: 'padding: 1rem' },
-      content: [
-        {
-          type: 'h3',
-          content: 'ТЭПМ и ЭТЭ',
-          attributes: {},
-        },
-        {
-          type: 'div',
-          content: contentArray,
-          attributes: {},
-        },  
-      ],
-    },
-    ]);
-  return html;
-};
-
-// асинхронная функция writeHtmlToFile, которая записывает в файл html-код
-const writeHtmlToFile = (html) => {
-  const data = html.renderHTML();
-  fs.writeFile(resultFileName, data, 'utf-8', () => console.log(`The ${resultFileName} file has been succesfully created!`));
-};
-
-generateNewsArray()
-  .then((newsArray) => createHtml(newsArray))
-  .then((html) => writeHtmlToFile(html))
+src.generateNewsArray(websitesList)
+  .then((newsArray) => src.createHtml(newsArray, header))
+  .then((html) => src.writeHtmlToFile(html, resultFileName))
   .catch(console.error);
