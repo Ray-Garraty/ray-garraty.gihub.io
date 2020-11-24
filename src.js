@@ -136,3 +136,37 @@ exports.scrapeNewsFromGoogleScholar = (queryString) => {
       .debug(console.log);
     }); 
 };
+
+exports.translateMonth = (monthInRussian) => {
+  const monthsTranslations = {
+    'января': 'January',
+    'февраля': 'February',
+    'марта': 'March',
+    'апреля': 'April',
+    'мая': 'May',
+    'июня': 'June',
+    'июля': 'July',
+    'августа': 'August',
+    'сентября': 'September',
+    'октября': 'October',
+    'ноября': 'November',
+    'декабря': 'December',
+    'январь': 'January',
+    'февраль': 'February',
+    'март': 'March',
+    'апрель': 'April',
+    'май': 'May',
+    'июнь': 'June',
+    'июль': 'July',
+    'август': 'August',
+    'сентябрь': 'September',
+    'октябрь': 'October',
+    'ноябрь': 'November',
+    'декабрь': 'December',
+  };
+  if (!monthsTranslations[monthInRussian]) {
+    console.log(`Некорректное название месяца: ${monthInRussian}`);
+    return;
+  }
+  return monthsTranslations[monthInRussian];
+};

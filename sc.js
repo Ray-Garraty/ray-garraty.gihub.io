@@ -108,11 +108,41 @@ const scrapeNewsFromNAWA = () => {
     }); 
 };
 
+const scrapeNewsFromTPS = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+      .get('https://titanps.ru/category/news/')
+      .find('div.news-item')
+      .set({
+        title: 'p.link > a',
+        date: 'p.date',
+        link: 'p.link > a@href',
+      })
+      .data(function(content) {
+        const [day, month, year] = content.date.split(' ');
+        content.date = `${day}${src.translateMonth(month)}${year}`;
+        result.push(content);
+      })
+      .done(() => {
+        const slicedResult = result.slice(0, 5);
+        return resolve(slicedResult);
+      })
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
+    }); 
+};
+
+
 const websitesList = [
   scrapeNewsFromTEEMP(),
   scrapeNewsFromPanasonic(),
   scrapeNewsFromSkeleton(),
-  scrapeNewsFromNAWA(),      
+  scrapeNewsFromNAWA(),
+  scrapeNewsFromTPS(),
+  src.scrapeNewsFromGoogleScholar('supercapacitor'),
+  src.scrapeNewsFromGoogleScholar('lithium+ion+capacitor'),
 ];
   
 src.generateNewsArray(websitesList)
