@@ -1,12 +1,12 @@
 const osmosis = require('osmosis');
 // osmosis.config('user_agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36');
 osmosis
-    .get('http://teemp.ru/news/')
-    .find('div.news-item')
+    .get('http://www.nawatechnologies.com/en/category/actualites-en/')
+    .find('div.fusion-post-content')
     .set({
-      title: 'div.title.p-b-20',
-      date: 'span.label',
-      link: 'div.row > a@href',
+      title: 'a',
+      date: 'span:nth-child(4)',
+      link: 'a@href',
     })
     .data(function(content) {
       console.log(content);

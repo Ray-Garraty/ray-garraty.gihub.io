@@ -29,10 +29,90 @@ const scrapeNewsFromTEEMP = () => {
         .error(console.log)
         .debug(console.log);
       }); 
-  };
+};
+
+const scrapeNewsFromPanasonic = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+      .get('https://industrial.panasonic.com/ww/product-news')
+      .set('year', 'div.view-content > div.item-list')
+      .find('dl.views-row')
+      .set({
+        title: 'a',
+        dayAndMonth: 'dt',
+        link: 'a@href',
+      })
+      .data(function(content) {
+        content.year = content.year.slice(0, 4);
+        content.date = `${content.dayAndMonth}, ${content.year}`;
+        result.push(content);
+      })
+      .done(() => {
+        const slicedResult = result.slice(0, 5);
+        return resolve(slicedResult);
+      })
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
+    }); 
+};
+
+const scrapeNewsFromSkeleton = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+      .get('https://www.skeletontech.com/news')
+      .find('div.post-header')
+      .set({
+        title: 'a',
+        date: 'p',
+        link: 'a@href',
+      })
+      .data(function(content) {
+        const regex = /\d{1,} [A-Z]\w{3,} \d{4}/m;
+        content.date = content.date.match(regex)[0];
+        result.push(content);
+      })
+      .done(() => {
+        const slicedResult = result.slice(0, 5);
+        return resolve(slicedResult);
+      })
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
+    }); 
+};
+
+const scrapeNewsFromNAWA = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+      .get('http://www.nawatechnologies.com/en/category/actualites-en/')
+      .find('div.fusion-post-content')
+      .set({
+        title: 'a',
+        date: 'span:nth-child(4)',
+        link: 'a@href',
+      })
+      .data(function(content) {
+        result.push(content);
+      })
+      .done(() => {
+        const slicedResult = result.slice(0, 5);
+        return resolve(slicedResult);
+      })
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
+    }); 
+};
 
 const websitesList = [
-  scrapeNewsFromTEEMP(),      
+  scrapeNewsFromTEEMP(),
+  scrapeNewsFromPanasonic(),
+  scrapeNewsFromSkeleton(),
+  scrapeNewsFromNAWA(),      
 ];
   
 src.generateNewsArray(websitesList)
