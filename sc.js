@@ -2,7 +2,7 @@ const _ = require('lodash');
 const src = require('./src.js');
 const osmosis = require('osmosis');
 
-const resultFileName = 'sc.htm';
+const resultFileName = './docs/sc.htm';
 const header = 'Новости СК';
 
 const scrapeNewsFromTEEMP = () => {

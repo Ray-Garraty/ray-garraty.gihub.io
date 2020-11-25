@@ -2,7 +2,7 @@ const _ = require('lodash');
 const src = require('./src.js');
 const osmosis = require('osmosis');
 
-const resultFileName = 'sofc.htm';
+const resultFileName = './docs/sofc.htm';
 const header = 'Новости ТОТЭ';
 
 const scrapeNewsFromBloomEnergy = () => {

@@ -2,7 +2,7 @@ const _ = require('lodash');
 const src = require('./src.js');
 const osmosis = require('osmosis');
 
-const resultFileName = 'pemfc.htm';
+const resultFileName = './docs/pemfc.htm';
 const header = 'Новости ТЭПМ и ЭТЭ';
 
 const scrapeNewsFromFuelCellsWorks = () => {
