@@ -350,7 +350,7 @@ const scrapeNewsFromSerEnergy = () => {
       link: 'a@href',
     })
     .data(function(content) {
-      content.date = content.date.replace(/(rd)|(th)|(nd)/g, '');  
+      content.date = content.date.replace(/(st)|(rd)|(th)|(nd)/g, '');  
       result.push(content);
     })
     .done(() => {

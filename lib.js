@@ -81,7 +81,7 @@ const scrapeNewsFromLiotech = () => {
         : `${domainName}${content.link}`;
         const dateArray = content.date.split(' ').slice(0, 2);
         const day = dateArray[0];
-        const month = dateArray[1].substr(-4);
+        const month = dateArray[1].match(/\W{3,}/);
         const year = dateArray[1].substr(-4);
         content.date = `${day} ${src.translateMonth(month)} ${year}`;
         result.push(content);
@@ -93,10 +93,36 @@ const scrapeNewsFromLiotech = () => {
     }); 
 };
 
+const scrapeNewsFromLeclanche = () => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+      .get('https://www.leclanche.com/company-news/')
+      .find('article')
+      .set({
+        title: 'a',
+        date: 'time.entry-date.published',
+        link: 'a@href',
+      })
+      .data(function(content) {
+        content.date = content.date.replace(/(st)|(rd)|(th)|(nd)/g, '');
+        result.push(content);
+      })
+      .done(() => {
+        const slicedResult = result.slice(0, 5);
+        return resolve(slicedResult);
+      })
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
+    }); 
+};
+
 const websitesList = [
-  scrapeNewsFromHSE(),
+  /* scrapeNewsFromHSE(),
   scrapeNewsFromSaft(),
-  scrapeNewsFromLiotech(),
+  scrapeNewsFromLiotech(), */
+  scrapeNewsFromLeclanche(),
 ];
   
 src.generateNewsArray(websitesList)
