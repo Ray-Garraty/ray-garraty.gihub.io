@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const _ = require('lodash');
 const src = require('./src.js');
 const osmosis = require('osmosis');
@@ -118,11 +120,38 @@ const scrapeNewsFromLeclanche = () => {
     }); 
 };
 
+const scrapeNewsFromMiningDotCom = (inquiry) => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+      .get(`https://www.mining.com/?s=${inquiry}`)
+      .find('div.inner-content')
+      .set({
+        title: 'h2 > a',
+        date: 'div.post-meta',
+        link: 'h2 > a@href',
+      })
+      .data(function(content) {
+        content.date = content.date.split('|')[1].toString().trim();
+        result.push(content);
+      })
+      .done(() => {
+        const slicedResult = result.slice(0, 5);
+        return resolve(slicedResult);
+      })
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
+    }); 
+};
+
 const websitesList = [
   /* scrapeNewsFromHSE(),
   scrapeNewsFromSaft(),
-  scrapeNewsFromLiotech(), */
+  scrapeNewsFromLiotech(),
   scrapeNewsFromLeclanche(),
+  scrapeNewsFromMiningDotCom('lithium'),
+  scrapeNewsFromMiningDotCom('cobalt'), */
 ];
   
 src.generateNewsArray(websitesList)

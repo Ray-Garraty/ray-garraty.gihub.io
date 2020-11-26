@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const _ = require('lodash');
 const src = require('./src.js');
 const osmosis = require('osmosis');
