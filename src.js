@@ -137,6 +137,41 @@ exports.scrapeNewsFromGoogleScholar = (queryString) => {
     }); 
 };
 
+// эта функция требует доработки для предотвращения выдачи капчи,
+// а также преобразования даты, полученной с сайта в форматах "чч:мм", "вчера в чч:мм" и "дд месяц в чч:мм"
+exports.scrapeNewsFromYandexNews = (queryString) => {
+  return new Promise((resolve, reject) => {
+    const result = [];
+    osmosis
+      .get(`https://newssearch.yandex.ru/yandsearch?text=${queryString}&rpt=nnews2&grhow=clutop&wiz_no_news=1&rel=tm`)
+      .config('user_agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36')
+      .config('tries', 1)
+      .config('concurrency', 1)
+      .delay(5000)
+      .paginate('div.pager__content :nth-child(3)')
+      .find('div.documents :first-child')
+      .set({
+        title: 'div.document__title > a',
+        date: 'div.document__time',
+        link: 'div.document__title > a@href',
+      })
+      .data(function(content) {
+        result.push(content);
+      })
+      .done(() => {
+        if (!result.length) {
+          const failObject = {};
+          failObject.title = "Результатов с Яндекс Новостей не получено...";
+          result.push(failObject);
+        }
+        return resolve(result);
+      })
+      .log(console.log)
+      .error(console.log)
+      .debug(console.log);
+    }); 
+};
+
 exports.translateMonth = (monthInRussian) => {
   const monthsTranslations = {
     'января': 'January',

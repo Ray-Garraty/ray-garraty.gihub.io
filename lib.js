@@ -146,12 +146,12 @@ const scrapeNewsFromMiningDotCom = (inquiry) => {
 };
 
 const websitesList = [
-  /* scrapeNewsFromHSE(),
+  scrapeNewsFromHSE(),
   scrapeNewsFromSaft(),
   scrapeNewsFromLiotech(),
   scrapeNewsFromLeclanche(),
   scrapeNewsFromMiningDotCom('lithium'),
-  scrapeNewsFromMiningDotCom('cobalt'), */
+  scrapeNewsFromMiningDotCom('cobalt'),
 ];
   
 src.generateNewsArray(websitesList)
