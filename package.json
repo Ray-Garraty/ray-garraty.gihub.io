@@ -23,6 +23,7 @@
   "dependencies": {
     "html-creator": "^0.4.4",
     "lodash": "^4.17.20",
-    "osmosis": "^1.1.10"
+    "osmosis": "^1.1.10",
+    "scrapoxy": "^3.1.1"
   }
 }
