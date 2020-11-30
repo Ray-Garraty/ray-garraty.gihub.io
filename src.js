@@ -137,7 +137,7 @@ exports.scrapeNewsFromGoogleScholar = (queryString) => {
     }); 
 };
 
-// эта функция требует доработки для предотвращения выдачи капчи,
+// эта функция требует доработки для предотвращения выдачи капчи
 exports.scrapeNewsFromYandexNews = (queryString) => {
   return new Promise((resolve, reject) => {
     const result = [];
@@ -156,24 +156,28 @@ exports.scrapeNewsFromYandexNews = (queryString) => {
         link: 'div.document__title > a@href',
       })
       .data(function(content) {
-        const currentDate = new Date();
-        const dateFromNews = content.date;
-        if (dateFromNews.length === 5) {
-          content.date = currentDate.toLocaleDateString('ru-RU');
-        } else if (dateFromNews.includes('вчера')) {
-          currentDate.setDate(currentDate.getDate() - 1);
-          content.date = currentDate.toLocaleDateString('ru-RU');
+        if (Object.keys(content).length === 0) {
+          content.title = 'Смени IP';
         } else {
-          const [day, month] = dateFromNews.split(/\s/).slice(0, 2);
-          const year = currentDate.getYear();
-          content.date = `${year}/${month}/${day}`;
+          const currentDate = new Date();
+          const dateFromNews = content.date;
+          if (dateFromNews.length === 5) {
+            content.date = currentDate.toLocaleDateString('ru-RU');
+          } else if (dateFromNews.includes('вчера')) {
+            currentDate.setDate(currentDate.getDate() - 1);
+            content.date = currentDate.toLocaleDateString('ru-RU');
+          } else {
+            const [day, month] = dateFromNews.split(/\s/).slice(0, 2);
+            const year = currentDate.getFullYear();
+            content.date = `${day} ${translateMonth(month)} ${year}`;
+          }  
         }
         result.push(content);
       })
       .done(() => {
         if (!result.length) {
           const failObject = {};
-          failObject.title = "Результатов с Яндекс-Новостей не получено. Пора менять IP.";
+          failObject.title = "Результатов с Яндекс-Новостей не получено совсем. Пора менять IP.";
           result.push(failObject);
         }
         return resolve(result);

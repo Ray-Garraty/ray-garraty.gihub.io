@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+	<channel>
+		<title>Fuel Cells News -- ScienceDaily</title>
+		<link>https://www.sciencedaily.com/news/matter_energy/fuel_cells/</link>
+		<description>Fuel Cell News and Research. Read about the latest developments in everything from highly efficient fuel cell technology to proposals of using microbes as an energy source.</description>
+		<language>en-us</language>
+		<pubDate>Mon, 30 Nov 2020 12:48:36 EST</pubDate>
+		<lastBuildDate>Mon, 30 Nov 2020 12:48:36 EST</lastBuildDate>
+		<ttl>60</ttl>
+		<image>
+			<title>Fuel Cells News -- ScienceDaily</title>
+			<url>https://www.sciencedaily.com/images/scidaily-logo-rss.png</url>
+			<link>https://www.sciencedaily.com/news/matter_energy/fuel_cells/</link>
+			<description>For more science news, visit ScienceDaily.</description>
+		</image>
+		<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="https://www.sciencedaily.com/rss/matter_energy/fuel_cells.xml" type="application/rss+xml" />
+		<item>
+			<title>Research creates hydrogen-producing living droplets, paving way for alternative future energy source</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201125091459.htm</link>
+			<description>Scientists have built tiny droplet-based microbial factories that produce hydrogen, instead of oxygen, when exposed to daylight in air. <!-- more --></description>
+			<pubDate>Wed, 25 Nov 2020 09:14:59 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201125091459.htm</guid>
+		</item>
+		<item>
+			<title>Creating higher energy density lithium-ion batteries for renewable energy applications</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201124111345.htm</link>
+			<description>Lithium-ion batteries that function as high-performance power sources for renewable applications, such as electric vehicles and consumer electronics, require electrodes that deliver high energy density without compromising cell lifetimes. Researchers investigate the origins of degradation in high energy density LIB cathode materials and develop strategies for mitigating those degradation mechanisms and improving LIB performance. <!-- more --></description>
+			<pubDate>Tue, 24 Nov 2020 11:13:45 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201124111345.htm</guid>
+		</item>
+		<item>
+			<title>Highly efficient, long-lasting electrocatalyst to boost hydrogen fuel production</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201120095900.htm</link>
+			<description>Researchers have developed a highly efficient and long-lasting electrocatalyst for water oxidation using cobalt, iron, and a minimal amount of ruthenium. <!-- more --></description>
+			<pubDate>Fri, 20 Nov 2020 09:59:00 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201120095900.htm</guid>
+		</item>
+		<item>
+			<title>Green hydrogen: Buoyancy-driven convection in the electrolyte</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201119125317.htm</link>
+			<description>Hydrogen produced by using solar energy could contribute to a climate neutral energy system of the future. But there are hurdles on the way from laboratory scale to large-scale implementation. A team has now presented a method to visualize convection in the electrolyte and to reliably simulate it in advance with a multiphysics model. <!-- more --></description>
+			<pubDate>Thu, 19 Nov 2020 12:53:17 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201119125317.htm</guid>
+		</item>
+		<item>
+			<title>The ultimate conditions to get the most out of high-nickel batteries</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201118141748.htm</link>
+			<description>It is common knowledge in battery manufacturing that many cathode materials are moisture sensitive. However, as the popularity of high nickel-based battery components increases, researchers have found that the drier the conditions that these cathodes are stored and processed in, then significant improvement in performance of the battery is gained. <!-- more --></description>
+			<pubDate>Wed, 18 Nov 2020 14:17:48 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201118141748.htm</guid>
+		</item>
+		<item>
+			<title>New semiconductor coating may pave way for future green fuels</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201118141733.htm</link>
+			<description>Hydrogen gas and methanol for fuel cells or as raw materials for the chemicals industry, for example, could be produced more sustainably using sunlight, a new study shows. In this study, researchers have developed a new coating material for semiconductors that may create new opportunities to produce fuels in processes that combine direct sunlight with electricity. <!-- more --></description>
+			<pubDate>Wed, 18 Nov 2020 14:17:33 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201118141733.htm</guid>
+		</item>
+		<item>
+			<title>New technique seamlessly converts ammonia to green hydrogen</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201118141718.htm</link>
+			<description>Researchers have developed a highly effective, environmentally friendly method for converting ammonia into hydrogen. The new technique is a major step forward for enabling a zero-pollution, hydrogen-fueled economy. The idea of using ammonia as a carrier for hydrogen delivery has gained traction in recent years because ammonia is much easier to liquify than hydrogen and is therefore much easier to store and transport. This technological breakthrough overcomes several existing barriers to the production of clean hydrogen from ammonia. <!-- more --></description>
+			<pubDate>Wed, 18 Nov 2020 14:17:18 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201118141718.htm</guid>
+		</item>
+		<item>
+			<title>Faster detection of photocatalyst-generated oxygen has big implications for clean energy</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201118092942.htm</link>
+			<description>In the future, hydrogen produced from sunlight and water using photocatalysts could provide a source of clean energy. Researchers have developed a method to detect the oxygen produced from this water-splitting reaction 1000 times faster. This new method can be utilized to improve our understanding of artificial photosynthesis&#039; reaction mechanisms and could contribute towards the development and large-scale implementation of photocatalyst technology for producing hydrogen fuel. <!-- more --></description>
+			<pubDate>Wed, 18 Nov 2020 09:29:42 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201118092942.htm</guid>
+		</item>
+		<item>
+			<title>In retrospect, the burning of wood in district heating plants has resulted in climate saving</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201117113046.htm</link>
+			<description>A new report shows that the burning of wood is significantly more climate friendly than coal and slightly more climate friendly than natural gas over the long run. For the first time, researchers quantified what the conversion of 10 Danish cogeneration plants from coal or natural gas to biomass has meant for their greenhouse gas emissions. <!-- more --></description>
+			<pubDate>Tue, 17 Nov 2020 11:30:46 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201117113046.htm</guid>
+		</item>
+		<item>
+			<title>Zinc-ion hybrid capacitors with ideal anions in the electrolyte show extra-long performance</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201113105838.htm</link>
+			<description>Metal-ion hybrid capacitors combine the properties of capacitors and batteries. One electrode uses the capacitive mechanism, the other the battery-type redox processes. Scientists have now scrutinized the role of anions in the electrolyte. The results reveal the importance of sulfate anions. Sulfate-based electrolytes gave zinc-ion hybrid capacitors outstanding performance and extra-long operability. <!-- more --></description>
+			<pubDate>Fri, 13 Nov 2020 10:58:38 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201113105838.htm</guid>
+		</item>
+		<item>
+			<title>Environmentally friendly method could lower costs to recycle lithium-ion batteries</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201112144017.htm</link>
+			<description>A new process for restoring spent cathodes to mint condition could make it more economical to recycle lithium-ion batteries. The process, developed by nanoengineers, is more environmentally friendly than today&#039;s methods; it uses greener ingredients, consumes 80 to 90% less energy, and emits about 75% less greenhouse gases. <!-- more --></description>
+			<pubDate>Thu, 12 Nov 2020 14:40:17 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201112144017.htm</guid>
+		</item>
+		<item>
+			<title>Prototype fuel gauge for orbit</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201112134633.htm</link>
+			<description>Liquids aren&#039;t as well behaved in space as they are on Earth. Inside a spacecraft, microgravity allows liquids to freely slosh and float about. This behavior has made fuel quantity in satellites difficult to pin down, but a new 3D-imaging fuel gauge could offer an ideal solution. <!-- more --></description>
+			<pubDate>Thu, 12 Nov 2020 13:46:33 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201112134633.htm</guid>
+		</item>
+		<item>
+			<title>Convenient antioxidant capacity measurement of food</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201112100905.htm</link>
+			<description>Japanese researchers have developed a system to quickly and easily measure the antioxidant capacity of food. The new electrochemical system uses Bicontinuous Microemulsion (BME), where a mixture of water and oil is gelated and integrated with a sheet-type electrode. This system can easily be used by anyone anywhere and is expected to be used for quality control in the production, manufacturing and sale of food products. <!-- more --></description>
+			<pubDate>Thu, 12 Nov 2020 10:09:05 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201112100905.htm</guid>
+		</item>
+		<item>
+			<title>Improving high-energy lithium-ion batteries with carbon filler</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201110112518.htm</link>
+			<description>Lithium-ion batteries are the major rechargeable power source for many portable devices as well as electric vehicles, but their use is limited, because they do not provide high power output while simultaneously allowing reversible energy storage. New research aims to offer a solution by showing how the inclusion of conductive fillers improves battery performance. <!-- more --></description>
+			<pubDate>Tue, 10 Nov 2020 11:25:18 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201110112518.htm</guid>
+		</item>
+		<item>
+			<title>Creating 3D virtual personas of all-solid-state batteries, building a better tomorrow</title>
+			<link>https://www.sciencedaily.com/releases/2020/11/201110102538.htm</link>
+			<description>Scientists are eyeing all-solid-state-lithium batteries as a safer alternative to conventional lithium-ion batteries; but their performance needs much improvement. Now, with the 3D digital twin technology that a team from Korea has developed, a 3D digital replica of the real thing can be developed, and their solid interface microstructures can be studied in detail, potentially accelerating their advancement manifold. <!-- more --></description>
+			<pubDate>Tue, 10 Nov 2020 10:25:38 EST</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/11/201110102538.htm</guid>
+		</item>
+		<item>
+			<title>Soil-powered fuel cell promises cheap, sustainable water purification</title>
+			<link>https://www.sciencedaily.com/releases/2020/10/201028082944.htm</link>
+			<description>Soil microbial fuel cells proven to be capable of creating energy to filter a person&#039;s daily drinking water in Brazil test. <!-- more --></description>
+			<pubDate>Wed, 28 Oct 2020 08:29:44 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/10/201028082944.htm</guid>
+		</item>
+		<item>
+			<title>Extending battery life in smartphones, electric cars</title>
+			<link>https://www.sciencedaily.com/releases/2020/10/201026114202.htm</link>
+			<description>A researcher is working to make portable devices and electric vehicles stay charged longer by extending the life of the rechargeable lithium-ion batteries powering them. He is doing this by making the batteries more efficient, with some of his latest work focusing on keeping the anode from falling apart over time. <!-- more --></description>
+			<pubDate>Mon, 26 Oct 2020 11:42:02 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/10/201026114202.htm</guid>
+		</item>
+		<item>
+			<title>Solar hydrogen: Let&#039;s consider the stability of photoelectrodes</title>
+			<link>https://www.sciencedaily.com/releases/2020/10/201026095407.htm</link>
+			<description>Scientists have examined the corrosion processes of high-quality BiVO4 photoelectrodes using different state-of-the-art characterisation methods. The result is the first operando stability study of high-purity BiVO4 photoanodes during the photoelectrochemical oxygen evolution reaction (OER). This work shows how the stability of photoelectrodes and catalysts can be compared and enhanced in the future. <!-- more --></description>
+			<pubDate>Mon, 26 Oct 2020 09:54:07 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/10/201026095407.htm</guid>
+		</item>
+		<item>
+			<title>Quantum engines with entanglement as fuel?</title>
+			<link>https://www.sciencedaily.com/releases/2020/10/201019090125.htm</link>
+			<description>It&#039;s still more science fiction than science fact, but perfect energy efficiency may be one step closer due to new research by physicists. <!-- more --></description>
+			<pubDate>Mon, 19 Oct 2020 09:01:25 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/10/201019090125.htm</guid>
+		</item>
+		<item>
+			<title>New findings pave the way to environmentally friendly supercapacitors</title>
+			<link>https://www.sciencedaily.com/releases/2020/10/201007093622.htm</link>
+			<description>Similar to batteries, supercapacitors are suitable for the repeated storage of electrical energy. Researchers have now presented a particularly safe and sustainable variant of such a supercapacitor. <!-- more --></description>
+			<pubDate>Wed, 07 Oct 2020 09:36:22 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/10/201007093622.htm</guid>
+		</item>
+		<item>
+			<title>Spinach: Good for Popeye and the planet</title>
+			<link>https://www.sciencedaily.com/releases/2020/10/201005122138.htm</link>
+			<description>Spinach, when converted from its leafy, edible form into carbon nanosheets, acts as a catalyst for an oxygen reduction reaction in fuel cells and metal-air batteries. <!-- more --></description>
+			<pubDate>Mon, 05 Oct 2020 12:21:38 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/10/201005122138.htm</guid>
+		</item>
+		<item>
+			<title>Generating renewable hydrogen fuel from the sea</title>
+			<link>https://www.sciencedaily.com/releases/2020/09/200929173419.htm</link>
+			<description>The power of the sun, wind and sea may soon combine to produce clean-burning hydrogen fuel, according to researchers. The team integrated water purification technology into a new proof-of-concept design for a sea water electrolyzer, which uses an electric current to split apart the hydrogen and oxygen in water molecules. <!-- more --></description>
+			<pubDate>Tue, 29 Sep 2020 17:34:19 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/09/200929173419.htm</guid>
+		</item>
+		<item>
+			<title>New materials: A toggle switch for catalysis</title>
+			<link>https://www.sciencedaily.com/releases/2020/09/200923124604.htm</link>
+			<description>A special material made of lanthanum, strontium, iron and oxygen can be switched back and forth between two different states: In one state the material is catalytically extremely active, in the other less so. The reason for this is the behavior of tiny iron nanoparticles on the surface. This finding should now make it possible to develop even better catalysts. <!-- more --></description>
+			<pubDate>Wed, 23 Sep 2020 12:46:04 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/09/200923124604.htm</guid>
+		</item>
+		<item>
+			<title>Predicting the slow death of lithium-ion batteries</title>
+			<link>https://www.sciencedaily.com/releases/2020/09/200914172928.htm</link>
+			<description>A new model offers a way to predict the condition of a battery&#039;s internal systems in real-time with far more accuracy than existing tools. In electric cars, the technology could improve driving range estimates and prolong battery life. <!-- more --></description>
+			<pubDate>Mon, 14 Sep 2020 17:29:28 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/09/200914172928.htm</guid>
+		</item>
+		<item>
+			<title>High-precision electrochemistry: The new gold standard in fuel cell catalyst development</title>
+			<link>https://www.sciencedaily.com/releases/2020/09/200910150340.htm</link>
+			<description>Scientists have made a pivotal discovery that could extend the lifetime of fuel cells that power electric vehicles by eliminating the dissolution of platinum catalysts. <!-- more --></description>
+			<pubDate>Thu, 10 Sep 2020 15:03:40 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/09/200910150340.htm</guid>
+		</item>
+		<item>
+			<title>Scientists probe the chemistry of a single battery electrode particle both inside and out</title>
+			<link>https://www.sciencedaily.com/releases/2020/09/200908200511.htm</link>
+			<description>Cracks and chemical reactions on a battery particle&#039;s surface can degrade performance, and the particle&#039;s ability to absorb and release lithium ions also changes over time. Scientists stuck a single particle the size of a red blood cell to the tip of a microscopic needle and probed it with X-rays to see how interior and surface changes influence each other. <!-- more --></description>
+			<pubDate>Tue, 08 Sep 2020 20:05:11 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/09/200908200511.htm</guid>
+		</item>
+		<item>
+			<title>Lightweight green supercapacitors could charge devices in a jiffy</title>
+			<link>https://www.sciencedaily.com/releases/2020/09/200908131041.htm</link>
+			<description>Researchers have described their novel plant-based energy storage device that could charge even electric cars within a few minutes in the near future. Furthermore, they said their devices are flexible, lightweight and cost-effective. <!-- more --></description>
+			<pubDate>Tue, 08 Sep 2020 13:10:41 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/09/200908131041.htm</guid>
+		</item>
+		<item>
+			<title>Splitting water molecules for a renewable energy future</title>
+			<link>https://www.sciencedaily.com/releases/2020/09/200904125114.htm</link>
+			<description>Chemists are working on energy storage and conversion research. This work is part of a new study that solves a key, fundamental barrier in the electrochemical water splitting process where the Lin Lab demonstrates a new technique to reassemble, revivify, and reuse a catalyst that allows for energy-efficient water splitting. <!-- more --></description>
+			<pubDate>Fri, 04 Sep 2020 12:51:14 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/09/200904125114.htm</guid>
+		</item>
+		<item>
+			<title>New anode material could lead to safer fast-charging batteries</title>
+			<link>https://www.sciencedaily.com/releases/2020/09/200902114443.htm</link>
+			<description>Scientists have discovered a new anode material that enables lithium-ion batteries to be safely recharged within minutes for thousands of cycles. Known as a disordered rocksalt, the new anode is made up of earth-abundant lithium, vanadium and oxygen atoms arranged in a similar way as ordinary kitchen table salt, but randomly. It is promising for commercial applications where both high energy density and high power are desired, such as electric cars, vacuum cleaners or drills. <!-- more --></description>
+			<pubDate>Wed, 02 Sep 2020 11:44:43 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/09/200902114443.htm</guid>
+		</item>
+		<item>
+			<title>Sandwich catalysts offer higher activity and durability</title>
+			<link>https://www.sciencedaily.com/releases/2020/08/200826101633.htm</link>
+			<description>A professor has developed a double-layered nanoporous platinum catalyst that activates hydrogen generation. <!-- more --></description>
+			<pubDate>Wed, 26 Aug 2020 10:16:33 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/08/200826101633.htm</guid>
+		</item>
+		<item>
+			<title>Thin layer protects battery, allows cold charging</title>
+			<link>https://www.sciencedaily.com/releases/2020/08/200826083031.htm</link>
+			<description>In the search for a reliable, quick-charging, cold-weather battery for automobiles, a self-assembling, thin layer of electrochemically active molecules may be the solution, according to a team or researchers. <!-- more --></description>
+			<pubDate>Wed, 26 Aug 2020 08:30:31 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/08/200826083031.htm</guid>
+		</item>
+		<item>
+			<title>New insights into lithium-ion battery failure mechanism</title>
+			<link>https://www.sciencedaily.com/releases/2020/08/200825110721.htm</link>
+			<description>Researchers have identified a potential new degradation mechanism for electric vehicle batteries - a key step to designing effective methods to improve battery lifespan. <!-- more --></description>
+			<pubDate>Tue, 25 Aug 2020 11:07:21 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/08/200825110721.htm</guid>
+		</item>
+		<item>
+			<title>Battery life for wearable electronic devices could be improved</title>
+			<link>https://www.sciencedaily.com/releases/2020/08/200825110654.htm</link>
+			<description>Researchers have found that asymmetric stresses within electrodes used in certain wearable electronic devices provides an important clue as to how to improve the durability and lifespan of these batteries. <!-- more --></description>
+			<pubDate>Tue, 25 Aug 2020 11:06:54 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/08/200825110654.htm</guid>
+		</item>
+		<item>
+			<title>Hydrochloric acid boosts catalyst activity</title>
+			<link>https://www.sciencedaily.com/releases/2020/08/200825110652.htm</link>
+			<description>A research team has developed a synthesis process which drastically increases the activity of catalysts for the desulfurization of crude oil. The new process could perhaps also be used for catalysts in fuel cells. <!-- more --></description>
+			<pubDate>Tue, 25 Aug 2020 11:06:52 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/08/200825110652.htm</guid>
+		</item>
+		<item>
+			<title>Scientists get atomistic picture of platinum catalyst degradation</title>
+			<link>https://www.sciencedaily.com/releases/2020/08/200824165611.htm</link>
+			<description>Degradation of platinum, used as a key electrode material in the hydrogen economy, severely shortens the lifetime of electrochemical energy conversion devices, such as fuel cells. For the first time, scientists elucidated the movements of the platinum atoms that lead to catalyst surface degradation. <!-- more --></description>
+			<pubDate>Mon, 24 Aug 2020 16:56:11 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/08/200824165611.htm</guid>
+		</item>
+		<item>
+			<title>Wireless device makes clean fuel from sunlight, CO2 and water</title>
+			<link>https://www.sciencedaily.com/releases/2020/08/200824123406.htm</link>
+			<description>Researchers have developed a standalone device that converts sunlight, carbon dioxide and water into a carbon-neutral fuel, without requiring any additional components or electricity. <!-- more --></description>
+			<pubDate>Mon, 24 Aug 2020 12:34:06 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/08/200824123406.htm</guid>
+		</item>
+		<item>
+			<title>Fuel cells for hydrogen vehicles are becoming longer lasting</title>
+			<link>https://www.sciencedaily.com/releases/2020/08/200824123403.htm</link>
+			<description>An international research team has succeeded in developing an electrocatalyst for hydrogen fuel cells which, in contrast to the catalysts commonly used today, does not require a carbon carrier and is therefore much more stable. The new process is industrially applicable and can be used to further optimize fuel cell powered vehicles without CO2 emissions. <!-- more --></description>
+			<pubDate>Mon, 24 Aug 2020 12:34:03 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/08/200824123403.htm</guid>
+		</item>
+		<item>
+			<title>No more playing with fire: Study offers insight into &#039;safer&#039; rechargeable batteries</title>
+			<link>https://www.sciencedaily.com/releases/2020/08/200820110910.htm</link>
+			<description>Lithium-ion batteries are used in various electronic devices. But, they also come with potential hazards, particularly if the battery is damaged or overcharged. This usually occurs because, in its overcharged state, spiky structures called &#039;lithium dendrites&#039; get deposited in the battery. Now, scientists use a technique called &#039;operando nuclear magnetic resonance&#039; to track the precise mechanism of dendrite formation. They also extend their experiments to sodium-ion batteries, making their practical application easier. <!-- more --></description>
+			<pubDate>Thu, 20 Aug 2020 11:09:10 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/08/200820110910.htm</guid>
+		</item>
+		<item>
+			<title>Converting solar energy to hydrogen fuel, with help from photosynthesis</title>
+			<link>https://www.sciencedaily.com/releases/2020/08/200817104305.htm</link>
+			<description>Global economic growth comes with increasing demand for energy, but stepping up energy production can be challenging. Recently, scientists have achieved record efficiency for solar-to-fuel conversion, and now they want to incorporate the machinery of photosynthesis to push it further. <!-- more --></description>
+			<pubDate>Mon, 17 Aug 2020 10:43:05 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/08/200817104305.htm</guid>
+		</item>
+		<item>
+			<title>Researchers make green chemistry advance with new catalyst for reduction of carbon dioxide</title>
+			<link>https://www.sciencedaily.com/releases/2020/08/200813100648.htm</link>
+			<description>Researchers have made a key advance in the green chemistry pursuit of converting the greenhouse gas carbon dioxide into reusable forms of carbon via electrochemical reduction. <!-- more --></description>
+			<pubDate>Thu, 13 Aug 2020 10:06:48 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/08/200813100648.htm</guid>
+		</item>
+		<item>
+			<title>Spider silk inspires new class of functional synthetic polymers</title>
+			<link>https://www.sciencedaily.com/releases/2020/08/200812144025.htm</link>
+			<description>Synthetic polymers have changed the world around us. However, It is hard to finely tune some of their properties, such as the ability to transport ions. To overcome this problem, researchers decided to take inspiration from nature and created a new class of polymers based on protein-like materials that work as proton conductors and might be useful in future bio-electronic devices. <!-- more --></description>
+			<pubDate>Wed, 12 Aug 2020 14:40:25 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/08/200812144025.htm</guid>
+		</item>
+		<item>
+			<title>Anode material for safe batteries with a long cycle life</title>
+			<link>https://www.sciencedaily.com/releases/2020/08/200806111828.htm</link>
+			<description>Researchers investigated a highly promising anode material for future high-performance batteries - lithium lanthanum titanate with a perovskite crystal structure (LLTO). Researchers can improve the energy density, power density, charging rate, safety, and cycle life of batteries without requiring a decrease of the particle size from micro to nano scale. <!-- more --></description>
+			<pubDate>Thu, 06 Aug 2020 11:18:28 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/08/200806111828.htm</guid>
+		</item>
+		<item>
+			<title>Turning carbon dioxide into liquid fuel</title>
+			<link>https://www.sciencedaily.com/releases/2020/08/200805160947.htm</link>
+			<description>Chemists report a new electrocatalyst that converts carbon dioxide and water into ethanol with very high energy efficiency, high selectivity for the desired final product and low cost. <!-- more --></description>
+			<pubDate>Wed, 05 Aug 2020 16:09:47 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/08/200805160947.htm</guid>
+		</item>
+		<item>
+			<title>Tandem catalytic system efficiently converts carbon dioxide to methanol</title>
+			<link>https://www.sciencedaily.com/releases/2020/07/200724104151.htm</link>
+			<description>Chemists have used a tandem catalytic system to efficiently convert carbon dioxide to methanol. By encapsulating multiple catalysts involved in the tandem process in nanoporous materials called metal-organic frameworks, the team reports achieving superior performance by eliminating catalyst incompatibility. The method could be applied to other tandem catalytic processes, allowing more efficient access to alternative fuels, commodity chemicals, and valuable pharmaceutical products. <!-- more --></description>
+			<pubDate>Fri, 24 Jul 2020 10:41:51 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/07/200724104151.htm</guid>
+		</item>
+		<item>
+			<title>Scientists develop new material for longer-lasting fuel cells</title>
+			<link>https://www.sciencedaily.com/releases/2020/07/200722192148.htm</link>
+			<description>New research suggests that graphene -- made in a specific way -- could be used to make more durable hydrogen fuel cells for cars. <!-- more --></description>
+			<pubDate>Wed, 22 Jul 2020 19:21:48 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/07/200722192148.htm</guid>
+		</item>
+		<item>
+			<title>Battery breakthrough gives boost to electric flight and long-range electric cars</title>
+			<link>https://www.sciencedaily.com/releases/2020/07/200720102044.htm</link>
+			<description>Researchers have developed a new battery material that could enable long-range electric vehicles that can drive for hundreds of miles on a single charge, and electric planes called eVTOLs for fast, environmentally friendly commutes. <!-- more --></description>
+			<pubDate>Mon, 20 Jul 2020 10:20:44 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/07/200720102044.htm</guid>
+		</item>
+		<item>
+			<title>Researchers create a roadmap to better multivalent batteries</title>
+			<link>https://www.sciencedaily.com/releases/2020/07/200717133238.htm</link>
+			<description>Lithium-ion batteries power everything from mobile phones to laptop computers and electric vehicles, but demand is growing for less expensive and more readily available alternatives. The top candidates all hold promise, but researchers report that steep challenges remain. <!-- more --></description>
+			<pubDate>Fri, 17 Jul 2020 13:32:38 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/07/200717133238.htm</guid>
+		</item>
+		<item>
+			<title>The secret to renewable solar fuels is an off-and-on again relationship</title>
+			<link>https://www.sciencedaily.com/releases/2020/07/200717101021.htm</link>
+			<description>Copper that was once bound with oxygen is better at converting CO2 into renewable fuels than copper that was never bound to oxygen, according to scientists. <!-- more --></description>
+			<pubDate>Fri, 17 Jul 2020 10:10:21 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/07/200717101021.htm</guid>
+		</item>
+		<item>
+			<title>Low-cost catalyst helps turn seawater into fuel at scale</title>
+			<link>https://www.sciencedaily.com/releases/2020/07/200715123120.htm</link>
+			<description>The Navy&#039;s quest to power its ships by converting seawater into fuel is one step nearer fruition. Chemical engineers have demonstrated that a potassium-promoted molybdenum carbide catalyst efficiently and reliably converts carbon dioxide to carbon monoxide, a critical step in the process. <!-- more --></description>
+			<pubDate>Wed, 15 Jul 2020 12:31:20 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/07/200715123120.htm</guid>
+		</item>
+		<item>
+			<title>New lithium battery charges faster, reduces risk of device explosions</title>
+			<link>https://www.sciencedaily.com/releases/2020/07/200714182148.htm</link>
+			<description>Cell phone batteries often heat up and, at times, can burst into flames. In most cases, the culprit behind such incidents can be traced back to lithium batteries. Despite providing long-lasting electric currents that can keep devices powered up, lithium batteries can internally short circuit, heating up the device. <!-- more --></description>
+			<pubDate>Tue, 14 Jul 2020 18:21:48 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/07/200714182148.htm</guid>
+		</item>
+		<item>
+			<title>Using electricity to break down pollutants left over after wastewater treatment</title>
+			<link>https://www.sciencedaily.com/releases/2020/07/200709085301.htm</link>
+			<description>Pesticides, pharmaceutical products, and endocrine disruptors are some of the emerging contaminants often found in treated domestic wastewater, even after secondary treatment. Researchers have now tested the effectiveness of a tertiary treatment process using electricity. <!-- more --></description>
+			<pubDate>Thu, 09 Jul 2020 08:53:01 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/07/200709085301.htm</guid>
+		</item>
+		<item>
+			<title>Engineers use electricity to clean up toxic water</title>
+			<link>https://www.sciencedaily.com/releases/2020/07/200707113206.htm</link>
+			<description>Powerful electrochemical process destroys water contaminants, such as pesticides. Wastewater is a significant environment issue. Researchers say the technology could be readily applied to the wine industry, paper processing and pharmaceutical manufacturing. <!-- more --></description>
+			<pubDate>Tue, 07 Jul 2020 11:32:06 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/07/200707113206.htm</guid>
+		</item>
+		<item>
+			<title>New room-temperature liquid-metal battery could be the path to powering the future</title>
+			<link>https://www.sciencedaily.com/releases/2020/07/200706173442.htm</link>
+			<description>Researchers have created a new liquid battery with components that can remain molten at room temperature. Other liquid batteries must be kept at 240 degrees Celsius for their components to stay molten. <!-- more --></description>
+			<pubDate>Mon, 06 Jul 2020 17:34:42 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/07/200706173442.htm</guid>
+		</item>
+		<item>
+			<title>New candidate for raw material synthesis through gene transfer</title>
+			<link>https://www.sciencedaily.com/releases/2020/07/200702113656.htm</link>
+			<description>Cyanobacteria hardly need any nutrients and use the energy of sunlight. Bathers are familiar with these microorganisms as they often occur in waters. A group of researchers has discovered that the multicellular species Phormidium lacuna can be genetically modified by natural transformation and could thus produce substances such as ethanol or hydrogen. <!-- more --></description>
+			<pubDate>Thu, 02 Jul 2020 11:36:56 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/07/200702113656.htm</guid>
+		</item>
+		<item>
+			<title>AI could help improve performance of lithium-ion batteries and fuel cells</title>
+			<link>https://www.sciencedaily.com/releases/2020/06/200625080942.htm</link>
+			<description>Researchers have demonstrated how machine learning could help design lithium-ion batteries and fuel cells with better performance. <!-- more --></description>
+			<pubDate>Thu, 25 Jun 2020 08:09:42 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/06/200625080942.htm</guid>
+		</item>
+		<item>
+			<title>Research determines financial benefit from driving electric vehicles</title>
+			<link>https://www.sciencedaily.com/releases/2020/06/200623145326.htm</link>
+			<description>Motorists can save as much as $14,500 on fuel costs over 15 years by driving an electric vehicle instead of a similar one fueled by gasoline, according to a new analysis. <!-- more --></description>
+			<pubDate>Tue, 23 Jun 2020 14:53:26 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/06/200623145326.htm</guid>
+		</item>
+		<item>
+			<title>New battery electrolyte may boost the performance of electric vehicles</title>
+			<link>https://www.sciencedaily.com/releases/2020/06/200622133016.htm</link>
+			<description>Researchers have designed a new electrolyte for lithium metal batteries that could increase the driving range of electric cars. <!-- more --></description>
+			<pubDate>Mon, 22 Jun 2020 13:30:16 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/06/200622133016.htm</guid>
+		</item>
+		<item>
+			<title>Researchers make next-generation, high-toughness battery component</title>
+			<link>https://www.sciencedaily.com/releases/2020/06/200618124801.htm</link>
+			<description>By combining a ceramic material with graphene, engineers have made what they say is the toughest solid electrolyte built to date. <!-- more --></description>
+			<pubDate>Thu, 18 Jun 2020 12:48:01 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/06/200618124801.htm</guid>
+		</item>
+		<item>
+			<title>Two-dimensional carbon networks</title>
+			<link>https://www.sciencedaily.com/releases/2020/06/200618102412.htm</link>
+			<description>Lithium-ion batteries usually contain graphitic carbons as anode materials. Scientists have investigated the carbonic nanoweb graphdiyne as a novel two-dimensional carbon network for its suitability in battery applications. Graphdiyne is as flat and thin as graphene, which is the one-atomic-layer-thin version of graphite, but it has a higher porosity and adjustable electronic properties. Researchers now describe its simple bottom-up synthesis from tailor-made precursor molecules. <!-- more --></description>
+			<pubDate>Thu, 18 Jun 2020 10:24:12 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/06/200618102412.htm</guid>
+		</item>
+		<item>
+			<title>Engineers develop new fuel cells with twice the operating voltage as hydrogen</title>
+			<link>https://www.sciencedaily.com/releases/2020/06/200618092445.htm</link>
+			<description>Engineers have developed high-power, direct borohydride fuel cells that operate at double the voltage of conventional hydrogen fuel cells. <!-- more --></description>
+			<pubDate>Thu, 18 Jun 2020 09:24:45 EDT</pubDate>
+			<guid isPermaLink="true">https://www.sciencedaily.com/releases/2020/06/200618092445.htm</guid>
+		</item>
+	</channel>
+</rss>
+<!-- Page successfully written to cache. -->

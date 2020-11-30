@@ -37,7 +37,7 @@ exports.readProxiesListFromFile = (path) => {
   return array; 
 };
 
-exports.choseRandomProxyFromList = (list) => {
+exports.chooseRandomProxyFromList = (list) => {
   const proxyServerIndex = Math.round(Math.random() * list.length);
   const chosenProxy = list[proxyServerIndex];
   const result = `${chosenProxy.ip}:${chosenProxy.port}`

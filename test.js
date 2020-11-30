@@ -5,16 +5,21 @@
 
 const osmosis = require('osmosis');
 const proxy = require('./proxy.js');
+const src = require('./src.js');
+const fs = require('fs'),
+    xml2js = require('xml2js');
 // const getProxies = proxy.getProxiesList();
 
 // proxiesList.then((result) => что-то делаем с массивом прокси-серверов);
 
 // osmosis.config('user_agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36');
 
-const date = new Date();
-console.log(date.toLocaleDateString('ru-RU'));
-date.setDate(date.getDate() - 1);
-console.log(date.toLocaleDateString('ru-RU'));
+const parser = new xml2js.Parser();
+fs.readFile('./feeds/batteries.xml', function(err, data) {
+  parser.parseString(data, function (err, result) {
+    console.dir(result.rss.channel[0].item);
+  });
+});
 
 const queryString = '%D0%BB%D0%B8%D1%82%D0%B8%D0%B9-%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5+%D0%B0%D0%BA%D0%BA%D1%83%D0%BC%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%D1%8B';
 let proxiesList;
