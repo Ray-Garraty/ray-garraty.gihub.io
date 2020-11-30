@@ -138,7 +138,6 @@ exports.scrapeNewsFromGoogleScholar = (queryString) => {
 };
 
 // эта функция требует доработки для предотвращения выдачи капчи,
-// а также преобразования даты, полученной с сайта в форматах "чч:мм", "вчера в чч:мм" и "дд месяц в чч:мм"
 exports.scrapeNewsFromYandexNews = (queryString) => {
   return new Promise((resolve, reject) => {
     const result = [];
@@ -147,21 +146,34 @@ exports.scrapeNewsFromYandexNews = (queryString) => {
       .config('user_agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36')
       .config('tries', 1)
       .config('concurrency', 1)
-      .delay(5000)
-      .paginate('div.pager__content :nth-child(3)')
-      .find('div.documents :first-child')
+      .delay(2000)
+      .paginate('div.pager__content :nth-child(3) > a', 3)
+      .delay(2000)
+      .find('li.search-item')
       .set({
         title: 'div.document__title > a',
         date: 'div.document__time',
         link: 'div.document__title > a@href',
       })
       .data(function(content) {
+        const currentDate = new Date();
+        const dateFromNews = content.date;
+        if (dateFromNews.length === 5) {
+          content.date = currentDate.toLocaleDateString('ru-RU');
+        } else if (dateFromNews.includes('вчера')) {
+          currentDate.setDate(currentDate.getDate() - 1);
+          content.date = currentDate.toLocaleDateString('ru-RU');
+        } else {
+          const [day, month] = dateFromNews.split(/\s/).slice(0, 2);
+          const year = currentDate.getYear();
+          content.date = `${year}/${month}/${day}`;
+        }
         result.push(content);
       })
       .done(() => {
         if (!result.length) {
           const failObject = {};
-          failObject.title = "Результатов с Яндекс Новостей не получено...";
+          failObject.title = "Результатов с Яндекс-Новостей не получено. Пора менять IP.";
           result.push(failObject);
         }
         return resolve(result);

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const https = require('https');
 
-/* exports.getProxiesList = () => {
+exports.getProxiesList = () => {
   const options = {
     host: 'api.proxyscrape.com',
     path: '/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all'
@@ -26,7 +26,7 @@ const https = require('https');
     });
       request.end();
   });
-}; */
+};
 
 exports.readProxiesListFromFile = (path) => {
   const data = fs.readFileSync(path, 'utf-8');
@@ -35,4 +35,12 @@ exports.readProxiesListFromFile = (path) => {
     return {ip, port};
   });
   return array; 
+};
+
+exports.choseRandomProxyFromList = (list) => {
+  const proxyServerIndex = Math.round(Math.random() * list.length);
+  const chosenProxy = list[proxyServerIndex];
+  const result = `${chosenProxy.ip}:${chosenProxy.port}`
+  console.log('Using proxy-server: ', result);
+  return result;
 };
