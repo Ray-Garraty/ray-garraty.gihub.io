@@ -1,5 +1,8 @@
 const fs = require('fs');
 const _ = require('lodash');
+const https = require('https');
+const axios = require('axios');
+const xml2js = require('xml2js');
 const osmosis = require('osmosis');
 const htmlCreator = require('html-creator');
 
@@ -188,7 +191,7 @@ exports.scrapeNewsFromYandexNews = (queryString) => {
     }); 
 };
 
-exports.translateMonth = (monthInRussian) => {
+const translateMonth = exports.translateMonth = (monthInRussian) => {
   const monthsTranslations = {
     'января': 'January',
     'февраля': 'February',
@@ -220,4 +223,34 @@ exports.translateMonth = (monthInRussian) => {
     return;
   }
   return monthsTranslations[monthInRussian];
+};
+
+const getRSSFeedFromUrl = (url) => {
+  return new Promise((resolve, reject) => {
+    axios({
+      url,
+      method: 'GET',
+      responseType: 'blob',
+    }).then((response) => resolve(response.data));
+  });
+};
+
+exports.generateNewsArrayFromRSS = (url) => {
+  let newsArray;
+  const rss = getRSSFeedFromUrl(url);
+  return new Promise((resolve, reject) => {
+    rss.then((data) => {
+      const parser = new xml2js.Parser();
+      parser.parseString(data, function (err, result) {
+        newsArray = result.rss.channel[0].item.map((newsItem) => {
+          return {
+            title: newsItem.title[0],
+            link: newsItem.link[0],
+            date: newsItem.pubDate[0],
+          };
+        });
+      });
+      return resolve(newsArray);
+    });
+  });
 };
