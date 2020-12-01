@@ -235,7 +235,7 @@ const getRSSFeedFromUrl = (url) => {
   });
 };
 
-exports.generateNewsArrayFromRSS = (url) => {
+exports.generateNewsArrayFromRSS = (url, ...searchTerms) => {
   let newsArray;
   const rss = getRSSFeedFromUrl(url);
   return new Promise((resolve, reject) => {
@@ -243,14 +243,25 @@ exports.generateNewsArrayFromRSS = (url) => {
       const parser = new xml2js.Parser();
       parser.parseString(data, function (err, result) {
         newsArray = result.rss.channel[0].item.map((newsItem) => {
-          return {
+          let res = null;
+          const obj = {
             title: newsItem.title[0],
             link: newsItem.link[0],
             date: newsItem.pubDate[0],
           };
+          if (!searchTerms.length) {
+            res = obj;
+          }
+          searchTerms.forEach((term) => {
+            if (newsItem.title[0].includes(term)) {
+              res = obj;
+              return;
+            }
+          });
+          return res;
         });
       });
-      return resolve(newsArray);
+      return resolve(newsArray.filter(x => x));
     });
   });
 };
