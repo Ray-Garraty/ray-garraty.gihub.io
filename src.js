@@ -164,15 +164,20 @@ exports.scrapeNewsFromYandexNews = (queryString) => {
         } else {
           const currentDate = new Date();
           const dateFromNews = content.date;
+          // рассчитано на то, что для сегодняшних новостей Яндекс пишет только время в формате чч:мм
           if (dateFromNews.length === 5) {
             content.date = currentDate.toLocaleDateString('ru-RU');
+          // рассчитано на то, что для вчерашних новостей Яндекс указывает "вчера в чч:мм"
           } else if (dateFromNews.includes('вчера')) {
             currentDate.setDate(currentDate.getDate() - 1);
             content.date = currentDate.toLocaleDateString('ru-RU');
           } else {
-            const [day, month] = dateFromNews.split(/\s/).slice(0, 2);
-            const year = currentDate.getFullYear();
-            content.date = `${day} ${translateMonth(month)} ${year}`;
+            // рассчитано на формат всех остальных дат вида 'дд.мм.гг в чч:мм'
+            const [shortDate, ...rest] = dateFromNews.split(/\s/);
+            const [day, month, shortYear] = shortDate.split('.');
+            const fullYear = shortYear.padStart(4, '20');
+            const fullDay = day.padStart(2, '0');
+            content.date = `${fullYear}/${month}/${fullDay}`;
           }  
         }
         result.push(content);
