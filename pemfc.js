@@ -653,6 +653,7 @@ const websitesList = [
   src.generateNewsArrayFromRSS('https://www.sciencedaily.com/rss/matter_energy/fuel_cells.xml'),
   src.generateNewsArrayFromRSS('https://www.sciencedaily.com/rss/earth_climate/renewable_energy.xml'),
   src.generateNewsArrayFromRSS('https://www.sciencedaily.com/rss/matter_energy/alternative_fuels.xml'),
+  src.generateNewsArrayFromRSS('https://investor.fce.com/rss/PressRelease.aspx?CategoryWorkflowId=1cb807d2-208f-4bc3-9133-6a9ad45ac3b0'),
   src.scrapeNewsFromGoogleScholar('pemfc'),
   src.scrapeNewsFromGoogleScholar('natural+gas+reforming'),
   src.scrapeNewsFromGoogleScholar('hydrogen+storage'),
