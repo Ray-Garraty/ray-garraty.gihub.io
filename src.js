@@ -140,8 +140,94 @@ exports.scrapeNewsFromGoogleScholar = (queryString) => {
     }); 
 };
 
+const translateMonth = exports.translateMonth = (monthInRussian) => {
+  const monthsTranslations = {
+    'января': 'January',
+    'февраля': 'February',
+    'марта': 'March',
+    'апреля': 'April',
+    'мая': 'May',
+    'июня': 'June',
+    'июля': 'July',
+    'августа': 'August',
+    'сентября': 'September',
+    'октября': 'October',
+    'ноября': 'November',
+    'декабря': 'December',
+    'январрь': 'January',
+    'январь': 'January',
+    'февраль': 'February',
+    'март': 'March',
+    'апрель': 'April',
+    'май': 'May',
+    'июнь': 'June',
+    'июль': 'July',
+    'август': 'August',
+    'сентябрь': 'September',
+    'октябрь': 'October',
+    'ноябрь': 'November',
+    'декабрь': 'December',
+  };
+  if (!monthsTranslations[monthInRussian]) {
+    console.log(`Некорректное название месяца: ${monthInRussian}`);
+    return;
+  }
+  return monthsTranslations[monthInRussian];
+};
+
 // эта функция требует доработки для предотвращения выдачи капчи
 exports.scrapeNewsFromYandexNews = (queryString) => {
+  const convertScrapedDateToCommonFormat = (string) => {
+    const processors = [
+      {
+        example: '07:10',
+        regex: /^\d{2}:\d{2}/,
+        processingFunction: () => {
+          const currentDate = new Date();
+          return currentDate.toLocaleDateString('ru-RU');
+        },
+      },
+      {
+        example: 'вчера в 15:45',
+        regex: /вчера\s\W\s\d{2}:\d{2}/,
+        processingFunction: () => {
+          const currentDate = new Date();
+          currentDate.setDate(currentDate.getDate() - 1);
+          return currentDate.toLocaleDateString('ru-RU');
+        },
+      },
+      {
+        example: '07 января в 23:38',
+        regex: /\d{2}\s\W{3,}\s\W\s\d{2}:\d{2}/,
+        processingFunction: (dateString) => {
+          const currentDate = new Date();
+          const fullYear = currentDate.getFullYear();
+          const [fullDay, russianMonth] = dateString.split(/\s/);
+          const month = translateMonth(russianMonth);
+          return `${fullYear}/${month}/${fullDay}`;
+        },
+      },
+      {
+        example: '30.12.20 в 03:14',
+        regex: /\d{2}.\d{2}.\d{2}\s\W\s\d{2}:\d{2}/,
+        processingFunction: (dateString) => {
+          const [shortDate] = dateString.split(/\s/);
+          const [day, month, shortYear] = shortDate.split('.');
+          const fullYear = shortYear.padStart(4, '20');
+          const fullDay = day.padStart(2, '0');
+          return `${fullYear}/${month}/${fullDay}`;
+        },
+      },
+    ];
+    const [processor] = processors.filter((proc) => Array.isArray(string.match(proc.regex)));
+    if (processor) {
+      return processor.processingFunction(string);
+    }
+    console.log(`Незарегистрированный формат даты с Яндекс.Новостей: "${string}"`);
+    const datePlug = '1970/01/01';
+    return datePlug;
+  };
+
   return new Promise((resolve, reject) => {
     const result = [];
     osmosis
@@ -162,30 +248,14 @@ exports.scrapeNewsFromYandexNews = (queryString) => {
         if (Object.keys(content).length === 0) {
           content.title = 'Смени IP';
         } else {
-          const currentDate = new Date();
-          const dateFromNews = content.date;
-          // рассчитано на то, что для сегодняшних новостей Яндекс пишет только время в формате чч:мм
-          if (dateFromNews.length === 5) {
-            content.date = currentDate.toLocaleDateString('ru-RU');
-          // рассчитано на то, что для вчерашних новостей Яндекс указывает "вчера в чч:мм"
-          } else if (dateFromNews.includes('вчера')) {
-            currentDate.setDate(currentDate.getDate() - 1);
-            content.date = currentDate.toLocaleDateString('ru-RU');
-          } else {
-            // рассчитано на формат всех остальных дат вида 'дд.мм.гг в чч:мм'
-            const [shortDate, ...rest] = dateFromNews.split(/\s/);
-            const [day, month, shortYear] = shortDate.split('.');
-            const fullYear = shortYear.padStart(4, '20');
-            const fullDay = day.padStart(2, '0');
-            content.date = `${fullYear}/${month}/${fullDay}`;
-          }  
+          content.date = convertScrapedDateToCommonFormat(content.date); 
         }
         result.push(content);
       })
       .done(() => {
         if (!result.length) {
           const failObject = {};
-          failObject.title = "Результатов с Яндекс-Новостей не получено совсем. Пора менять IP.";
+          failObject.title = 'Результатов с Яндекс-Новостей не получено совсем. Пора менять IP.';
           result.push(failObject);
         }
         return resolve(result);
@@ -193,41 +263,7 @@ exports.scrapeNewsFromYandexNews = (queryString) => {
       .log(console.log)
       .error(console.log)
       .debug(console.log);
-    }); 
-};
-
-const translateMonth = exports.translateMonth = (monthInRussian) => {
-  const monthsTranslations = {
-    'января': 'January',
-    'февраля': 'February',
-    'марта': 'March',
-    'апреля': 'April',
-    'мая': 'May',
-    'июня': 'June',
-    'июля': 'July',
-    'августа': 'August',
-    'сентября': 'September',
-    'октября': 'October',
-    'ноября': 'November',
-    'декабря': 'December',
-    'январь': 'January',
-    'февраль': 'February',
-    'март': 'March',
-    'апрель': 'April',
-    'май': 'May',
-    'июнь': 'June',
-    'июль': 'July',
-    'август': 'August',
-    'сентябрь': 'September',
-    'октябрь': 'October',
-    'ноябрь': 'November',
-    'декабрь': 'December',
-  };
-  if (!monthsTranslations[monthInRussian]) {
-    console.log(`Некорректное название месяца: ${monthInRussian}`);
-    return;
-  }
-  return monthsTranslations[monthInRussian];
+  });
 };
 
 const getRSSFeedFromUrl = (url) => {
