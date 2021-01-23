@@ -1,30 +1,11 @@
 #!/usr/bin/env node
-const osmosis = require('osmosis');
+const axios = require('axios');
+const fs = require('fs');
 const src = require('./src.js');
 
-const scrapeNewsFromPanasonic = () => new Promise((resolve) => {
-  const result = [];
-  osmosis
-    .get('https://industrial.panasonic.com/ww/product-news?year%5Bvalue%5D%5Byear%5D=2021&product-id=429')
-    .set('year', 'div.view-content > div.item-list')
-    .find('dl.views-row')
-    .set({
-      title: 'a',
-      dayAndMonth: 'dt',
-      link: 'a@href',
-    })
-    .data((content) => {
-      content.year = (new Date()).getFullYear();
-      content.date = `${content.dayAndMonth}, ${content.year}`;
-      result.push(src.fillUpAbsentData(content, 'Panasonic'));
-    })
-    .done(() => {
-      const slicedResult = result.slice(0, 5);
-      return resolve(slicedResult);
-    })
-    .log(console.log)
-    .error(console.log)
-    .debug(console.log);
-});
-
-scrapeNewsFromPanasonic().then(console.log);
+axios
+  .get('https://www.bing.com/news/search?q=%d0%b1%d0%b5%d1%81%d0%bf%d0%b8%d0%bb%d0%be%d1%82%d0%bd%d0%b8%d0%ba%d0%b8&qft=sortbydate%3d%221%22+interval%3d%228%22&form=YFNR')
+  .then((response) => {
+    fs.writeFileSync('test.htm', response.data, 'utf-8');
+  })
+  .catch(console.error);

@@ -91,14 +91,13 @@ const scrapeNewsFromLeclanche = () => new Promise((resolve) => {
   const result = [];
   osmosis
     .get('https://www.leclanche.com/company-news/')
-    .find('article')
+    .find('div.blogs__item')
     .set({
       title: 'a',
-      date: 'time.entry-date.published',
+      date: 'div.blog__meta p',
       link: 'a@href',
     })
     .data((content) => {
-      content.date = content.date.replace(/(st)|(rd)|(th)|(nd)/g, '');
       result.push(src.fillUpAbsentData(content, 'Leclanche'));
     })
     .done(() => {
