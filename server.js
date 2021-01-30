@@ -12,42 +12,46 @@ const app = express();
 
 app.get('/*', (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
-  const topicName = req.url.slice(1);
-  if (topicName === 'test') {
-    const fakeResponseData = fs.readFileSync('_fixtures_/response.data', 'utf-8').trim();
-    const parsedFakeResponseData = JSON.parse(fakeResponseData);
-    parsedFakeResponseData.forEach((item) => {
-      item.date = src.formatDate(item.date);
-    });
-    res.send(JSON.stringify(parsedFakeResponseData)).end();
+  if (req.url === '/') {
+    res.send('Welcome to the server side of my first pet project "Tech and Scientific News Webscraper"!').end();
   } else {
-    try {
-      let promises;
-      switch (topicName) {
-        case 'sofc':
-          promises = sofc.launchScrapers();
-          break;
-        case 'pemfc':
-          promises = pemfc.launchScrapers();
-          break;
-        case 'sc':
-          promises = sc.launchScrapers();
-          break;
-        case 'lib':
-          promises = lib.launchScrapers();
-          break;
-        case 'uas':
-          promises = uas.launchScrapers();
-          break;
-        default:
-          throw new Error('Unknown topic name: ', topicName);
+    const topicName = req.url.slice(1);
+    if (topicName === 'test') {
+      const fakeResponseData = fs.readFileSync('_fixtures_/response.data', 'utf-8').trim();
+      const parsedFakeResponseData = JSON.parse(fakeResponseData);
+      parsedFakeResponseData.forEach((item) => {
+        item.date = src.formatDate(item.date);
+      });
+      res.send(JSON.stringify(parsedFakeResponseData)).end();
+    } else {
+      try {
+        let promises;
+        switch (topicName) {
+          case 'sofc':
+            promises = sofc.launchScrapers();
+            break;
+          case 'pemfc':
+            promises = pemfc.launchScrapers();
+            break;
+          case 'sc':
+            promises = sc.launchScrapers();
+            break;
+          case 'lib':
+            promises = lib.launchScrapers();
+            break;
+          case 'uas':
+            promises = uas.launchScrapers();
+            break;
+          default:
+            throw new Error('Unknown topic name: ', topicName);
+        }
+        src.generateNewsArray(promises)
+          .then((result) => {
+            res.send(JSON.stringify(result)).end();
+          });
+      } catch (error) {
+        res.status(404).end();
       }
-      src.generateNewsArray(promises)
-        .then((result) => {
-          res.send(JSON.stringify(result)).end();
-        });
-    } catch (error) {
-      res.status(404).end();
     }
   }
 });
