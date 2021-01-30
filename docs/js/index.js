@@ -1,10 +1,9 @@
-const _ = require('lodash');
 const buttonElements = document.querySelectorAll('button');
 const tableBodyElement = document.querySelector('tbody');
 const messageFieldElement = document.querySelector('p.list-group-item');
 
-// const serverUrl = 'https://ray-garraty-webscraper.ew.r.appspot.com';
-const serverUrl = 'http://localhost:8080';
+const serverUrl = 'https://ray-garraty-webscraper.ew.r.appspot.com';
+// const serverUrl = 'http://localhost:8080';
 
 const handleButtonClick = (e) => {
   const { id } = e.target.dataset;
@@ -39,7 +38,7 @@ const handleButtonClick = (e) => {
       });
       buttonElements.forEach((element) => element.disabled = false);
       messageFieldElement.classList.remove('text-warning');
-      if (_.isEmpty(news)) {
+      if (news.length === 0) {
         messageFieldElement.classList.add('text-info');
         messageFieldElement.textContent = 'Свежих новостей по выбранной Вами тематике пока нет. Попробуйте повторить загрузку позже';
       } else {

@@ -1,6 +1,9 @@
-runtime: nodejs12
+runtime: nodejs10
 
 handlers:
 - url: /
-  static_files: www/index.html
-  upload: www/index.html
+  static_files: docs/index.html
+  upload: docs/index.html
+
+- url: /
+  static_dir: docs
