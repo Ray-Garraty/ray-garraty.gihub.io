@@ -1,11 +1,8 @@
 #!/usr/bin/env node
-
+/* eslint-disable no-param-reassign */
 const _ = require('lodash');
 const osmosis = require('osmosis');
-const src = require('./src.js');
-
-const resultFileName = './docs/pemfc.htm';
-const header = 'Новости ТЭПМ и ЭТЭ';
+const src = require('../app.js');
 
 const scrapeNewsFromFuelCellsWorks = () => new Promise((resolve) => {
   const result = [];
@@ -597,7 +594,7 @@ const scrapeNewsFromH2Live = () => new Promise((resolve) => {
     .debug(console.log);
 });
 
-const websitesList = [
+exports.launchScrapers = () => [
   scrapeNewsFromFuelCellsWorks(),
   scrapeNewsFromPowerCell(),
   scrapeNewsFromBallard(),
@@ -623,17 +620,12 @@ const websitesList = [
   scrapeNewsFromDoosan(),
   scrapeNewsFromToshiba(),
   scrapeNewsFromH2Live(),
-  src.generateNewsArrayFromRSS('https://www.sciencedaily.com/rss/matter_energy/fuel_cells.xml'),
-  src.generateNewsArrayFromRSS('https://www.sciencedaily.com/rss/earth_climate/renewable_energy.xml'),
-  src.generateNewsArrayFromRSS('https://www.sciencedaily.com/rss/matter_energy/alternative_fuels.xml'),
-  src.generateNewsArrayFromRSS('https://investor.fce.com/rss/PressRelease.aspx?CategoryWorkflowId=1cb807d2-208f-4bc3-9133-6a9ad45ac3b0'),
+  src.extractNewsFromRSSFeed('https://www.sciencedaily.com/rss/matter_energy/fuel_cells.xml'),
+  src.extractNewsFromRSSFeed('https://www.sciencedaily.com/rss/earth_climate/renewable_energy.xml'),
+  src.extractNewsFromRSSFeed('https://www.sciencedaily.com/rss/matter_energy/alternative_fuels.xml'),
+  src.extractNewsFromRSSFeed('https://investor.fce.com/rss/PressRelease.aspx?CategoryWorkflowId=1cb807d2-208f-4bc3-9133-6a9ad45ac3b0'),
   src.scrapeNewsFromGoogleScholar('pemfc'),
   src.scrapeNewsFromGoogleScholar('natural+gas+reforming'),
   src.scrapeNewsFromGoogleScholar('hydrogen+storage'),
   src.scrapeNewsFromGoogleScholar('hydrogen+purification'),
 ];
-
-src.generateNewsArray(websitesList)
-  .then((newsArray) => src.createHtml(newsArray, header))
-  .then((html) => src.writeHtmlToFile(html, resultFileName))
-  .catch(console.error);

@@ -1,14 +1,12 @@
 #!/usr/bin/env node
 const osmosis = require('osmosis');
-const src = require('./src.js');
-
-const resultFileName = './docs/sofc.htm';
-const header = 'Новости ТОТЭ';
+const src = require('../app.js');
 
 const scrapeNewsFromBloomEnergy = () => new Promise((resolve) => {
   const result = [];
   osmosis
     .get('https://www.bloomenergy.com/newsroom/press-releases')
+    .config('user_agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36')
     .find('div.views-row')
     .set({
       title: 'a',
@@ -101,15 +99,10 @@ const scrapeNewsFromSeeO2Energy = () => new Promise((resolve) => {
     .debug(console.log);
 });
 
-const websitesList = [
+exports.launchScrapers = () => [
   scrapeNewsFromBloomEnergy(),
   scrapeNewsFromElcogen(),
   scrapeNewsFromSolidPower(),
   scrapeNewsFromSeeO2Energy(),
   src.scrapeNewsFromGoogleScholar('solid+oxide+fuel+cells'),
 ];
-
-src.generateNewsArray(websitesList)
-  .then((newsArray) => src.createHtml(newsArray, header))
-  .then((html) => src.writeHtmlToFile(html, resultFileName))
-  .catch(console.error);

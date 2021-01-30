@@ -6,7 +6,7 @@ const osmosis = require('osmosis');
 const HtmlCreator = require('html-creator');
 
 // функция для заполнения значений, по которым скрэйперу не удалось собрать данных
-const fillUpAbsentData = exports.fillUpAbsentData = (newsItem, resourceName) => {
+const fillUpAbsentData = (newsItem, resourceName) => {
   const absentKeys = _.difference(['title', 'date', 'link'], Object.keys(newsItem));
   absentKeys.forEach((key) => {
     if (key === 'date') {
@@ -19,27 +19,22 @@ const fillUpAbsentData = exports.fillUpAbsentData = (newsItem, resourceName) => 
 };
 
 // простая функция parseDate - принимает на вход строку даты в нестандартной формате
-// (сграбленную с сайта) и преобразует её в число мс с 01.01.1970
+// (сграбленную с сайта) и преобразует её в число мс, прошедшее с 01.01.1970
 const parseDate = (dateStringFromSite) => Date.parse(dateStringFromSite);
 
 // простая функция formatDate - принимает на вход дату в виде числа мс с 01.01.1970
 // и преобразует её в строковое представление для HTML-отображения
 const formatDate = (msDate) => {
-  const dateOutputOptions = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  };
   const date = new Date(msDate);
-  const formattedDate = `${date.toLocaleDateString('ru-RU', dateOutputOptions)}: `;
-  return formattedDate;
+  const [month, day, year] = date.toLocaleDateString('en-US').split('/');
+  return [day.padStart(2, '0'), month.padStart(2, '0'), year].join('.');
 };
 
 /* функция-генератор массива новостей generateNewsArray: формирует массив промисов, дожидается
 разрешения Promise.all по ним, сортирует полученный массив новостей по дате и выдаёт его */
 const msInDay = 86400000;
 const cutoffPeriodInDays = 14; // задаём период в днях, старше которого нам новости не нужны
-exports.generateNewsArray = async (list) => {
+const generateNewsArray = async (list) => {
   const promises = [...list];
   const news = await Promise.all(promises);
   const flatNewsArray = _.flattenDeep(news);
@@ -48,15 +43,17 @@ exports.generateNewsArray = async (list) => {
     element.date = parseDate(element.date);
   });
   const newsSortedByDate = _.sortBy(uniqueNewsArray, (element) => element.date);
-  const result = newsSortedByDate.reverse();
+  const array = newsSortedByDate.reverse();
   const today = Date.now();
   const cutoffDate = today - (cutoffPeriodInDays * msInDay);
-  return result.filter((item) => item.date > cutoffDate);
+  const result = array.filter((item) => item.date > cutoffDate);
+  result.forEach((item) => item.date = formatDate(item.date));
+  return result;
 };
 
 // простая функция createHtmlFromNestedArray, которая принимает на вход массив новостей
 // и генерирует HTML-код с ними
-exports.createHtml = (news, header) => {
+const createHtml = (news, header) => {
   const contentArray = news.map((element) => {
     const formattedDate = formatDate(element.date);
     const result = {
@@ -102,12 +99,12 @@ exports.createHtml = (news, header) => {
   return html;
 };
 
-exports.writeHtmlToFile = (html, resultFileName) => {
+const writeHtmlToFile = (html, resultFileName) => {
   const data = html.renderHTML();
   fs.writeFile(resultFileName, data, 'utf-8', () => console.log(`The ${resultFileName} file has been succesfully created!`));
 };
 
-exports.scrapeNewsFromGoogleScholar = (queryString) => {
+const scrapeNewsFromGoogleScholar = (queryString) => {
   const convertDateFromRelativeToAbsolute = (relativeDate) => {
     let msecsDiff = 0;
     if (relativeDate) {
@@ -155,7 +152,7 @@ exports.scrapeNewsFromGoogleScholar = (queryString) => {
   });
 };
 
-const translateMonth = exports.translateMonth = (monthInRussian) => {
+const translateMonth = (monthInRussian) => {
   const monthsTranslations = {
     января: 'January',
     февраля: 'February',
@@ -191,7 +188,7 @@ const translateMonth = exports.translateMonth = (monthInRussian) => {
 };
 
 // эта функция требует доработки для предотвращения выдачи капчи
-exports.scrapeNewsFromYandexNews = (queryString) => {
+const scrapeNewsFromYandexNews = (queryString) => {
   const convertScrapedDateToCommonFormat = (string) => {
     const processors = [
       {
@@ -289,7 +286,7 @@ const getRSSFeedFromUrl = (url) => new Promise((resolve) => {
   }).then((response) => resolve(response.data));
 });
 
-exports.generateNewsArrayFromRSS = (url, ...searchTerms) => {
+const extractNewsFromRSSFeed = (url, ...searchTerms) => {
   let newsArray;
   const rss = getRSSFeedFromUrl(url);
   return new Promise((resolve) => {
@@ -317,4 +314,16 @@ exports.generateNewsArrayFromRSS = (url, ...searchTerms) => {
       return resolve(newsArray.filter((x) => x));
     });
   });
+};
+
+module.exports = {
+  formatDate,
+  fillUpAbsentData,
+  generateNewsArray,
+  createHtml,
+  writeHtmlToFile,
+  scrapeNewsFromGoogleScholar,
+  translateMonth,
+  scrapeNewsFromYandexNews,
+  extractNewsFromRSSFeed,
 };

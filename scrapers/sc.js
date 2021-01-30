@@ -1,9 +1,6 @@
 #!/usr/bin/env node
 const osmosis = require('osmosis');
-const src = require('./src.js');
-
-const resultFileName = './docs/sc.htm';
-const header = 'Новости СК';
+const src = require('../app.js');
 
 const scrapeNewsFromTEEMP = () => new Promise((resolve) => {
   const result = [];
@@ -124,7 +121,7 @@ const scrapeNewsFromTPS = () => new Promise((resolve) => {
     .debug(console.log);
 });
 
-const websitesList = [
+exports.launchScrapers = () => [
   scrapeNewsFromTEEMP(),
   scrapeNewsFromPanasonic(),
   scrapeNewsFromSkeleton(),
@@ -133,8 +130,3 @@ const websitesList = [
   src.scrapeNewsFromGoogleScholar('supercapacitor'),
   src.scrapeNewsFromGoogleScholar('lithium+ion+capacitor'),
 ];
-
-src.generateNewsArray(websitesList)
-  .then((newsArray) => src.createHtml(newsArray, header))
-  .then((html) => src.writeHtmlToFile(html, resultFileName))
-  .catch(console.error);
