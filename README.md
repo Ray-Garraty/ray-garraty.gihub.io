@@ -2,7 +2,7 @@
 ##### Collects news from multiple websites with different structures with a single button click
 ##### Also able to work with RSS feeds
 ### Project webpage:
-[https://ray-garraty.github.io/webscraper/docs/index.html](https://ray-garraty.github.io/webscraper/docs/index.html)
+[https://ray-garraty.github.io/webscraper/](https://ray-garraty.github.io/webscraper/)
 
 The project is built upon the following stack:
 * Node.js v11 (deployed on the [Google Cloud Platform](https://ray-garraty-webscraper.ew.r.appspot.com))
