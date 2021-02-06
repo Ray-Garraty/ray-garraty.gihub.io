@@ -28,6 +28,7 @@
     "axios": "^0.21.0",
     "express": "^4.17.1",
     "html-creator": "^0.4.4",
+    "languagedetect": "^2.0.0",
     "lodash": "^4.17.20",
     "osmosis": "^1.1.10",
     "xml2js": "^0.4.23"

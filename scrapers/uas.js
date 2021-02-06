@@ -28,6 +28,7 @@ exports.launchScrapers = () => [
   scrapeNewsFromDroneLife(),
   src.extractNewsFromRSSFeed('https://www.unmannedsystemstechnology.com/category/news/uav-news/feed'),
   src.extractNewsFromRSSFeed('https://www.unmannedsystemstechnology.com/category/news/ugv-news/feed'),
+  src.extractNewsFromRSSFeed('https://www.selfdrivingcars360.com/feed'),
   src.extractNewsFromRSSFeed('https://www.popmech.ru/out/public-all.xml', 'беспилотник', 'дрон', 'БЛА', 'БПЛА', 'беспилотн', 'автономн'),
   src.extractNewsFromRSSFeed('https://hightech.plus/feed.rss', 'беспилотник', 'дрон', 'БЛА', 'БПЛА', 'беспилотн', 'автономн'),
   src.extractNewsFromRSSFeed('https://nplus1.ru/rss', 'беспилотник', 'дрон', 'БЛА', 'БПЛА', 'беспилотн', 'автономн'),

@@ -2,7 +2,10 @@
 /* eslint-disable no-param-reassign */
 const _ = require('lodash');
 const osmosis = require('osmosis');
+const LanguageDetect = require('languagedetect');
 const src = require('../app.js');
+
+const lngDetector = new LanguageDetect();
 
 const scrapeNewsFromFuelCellsWorks = () => new Promise((resolve) => {
   const result = [];
@@ -594,6 +597,26 @@ const scrapeNewsFromH2Live = () => new Promise((resolve) => {
     .debug(console.log);
 });
 
+const scrapeNewsFromPermascand = () => new Promise((resolve) => {
+  const result = [];
+  return osmosis
+    .get('https://permascand.com/contact/news/')
+    .find('article')
+    .set({
+      title: 'h2 > a',
+      date: 'span.published',
+      link: 'a@href',
+    })
+    .data((content) => {
+      const [[lang]] = lngDetector.detect(content.title, 1);
+      result.push(src.fillUpAbsentData({ ...content, lang }, 'H2Live'));
+    })
+    .done(() => resolve(result.filter((post) => post.lang === 'english')))
+    .log(console.log)
+    .error(console.error)
+    .debug(console.log);
+});
+
 exports.launchScrapers = () => [
   scrapeNewsFromFuelCellsWorks(),
   scrapeNewsFromPowerCell(),
@@ -620,6 +643,7 @@ exports.launchScrapers = () => [
   scrapeNewsFromDoosan(),
   scrapeNewsFromToshiba(),
   scrapeNewsFromH2Live(),
+  scrapeNewsFromPermascand(),
   src.extractNewsFromRSSFeed('https://www.sciencedaily.com/rss/matter_energy/fuel_cells.xml'),
   src.extractNewsFromRSSFeed('https://www.sciencedaily.com/rss/earth_climate/renewable_energy.xml'),
   src.extractNewsFromRSSFeed('https://www.sciencedaily.com/rss/matter_energy/alternative_fuels.xml'),
