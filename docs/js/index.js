@@ -2,8 +2,8 @@ const buttonElements = document.querySelectorAll('button');
 const tableBodyElement = document.querySelector('tbody');
 const messageFieldElement = document.querySelector('p.list-group-item');
 
-// const serverUrl = 'https://ray-garraty-webscraper.ew.r.appspot.com';
-const serverUrl = 'http://localhost:8080';
+const serverUrl = 'https://ray-garraty-webscraper.ew.r.appspot.com';
+// const serverUrl = 'http://localhost:8080';
 
 const handleButtonClick = (e) => {
   const { id } = e.target.dataset;
